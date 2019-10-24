@@ -163,13 +163,17 @@
               </div>
               <!-- /.tab-pane -->
               <div class="tab-pane" id="voucher">
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-                It has survived not only five centuries, but also the leap into electronic typesetting,
-                remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
-                sheets containing Lorem Ipsum passages, and more recently with desktop publishing software
-                like Aldus PageMaker including versions of Lorem Ipsum.
+                <table id="voucher_data" class="table table-borderless table-hover table-striped" style="font-size: 1.2rem" width="100%">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>MOVIMIENTO</th>
+                      <th>NOMBRE ARCHIVO</th>
+                      <th>TIPO</th>
+                      <th width="150">OPCIONES</th>
+                    </tr>
+                  </thead>
+                </table>
               </div>
               <!-- /.tab-pane -->
             </div>
@@ -403,7 +407,7 @@
       </div>
     </div>
 
-    <!-- Modal Editar Movimiento -->
+    <!-- Modal Editar Comprobante -->
     <div class="modal fade in" id="modalComprobante" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -414,7 +418,31 @@
           </div>
             <form id="addVoucher" method="POST" action="model/uploadVoucher.php">
               <div class="modal-body">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <input type="text" name="name_voucher" id="name_voucher" class="form-control" placeholder="Añadir nombre voucher">
+                      <input type="hidden" name="id_property" id="property" value="<?php $id_property = $_GET['property']; echo $id_property;?>">
+                    </div>
+                  </div>
 
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <select style="text-transform: capitalize;" id="movement" name="movement" class="form-control select2">
+                        <?php
+                        $id_property = $_GET['property'];
+                        $query ="SELECT * FROM tbl_move_property WHERE id_property = '$id_property'";
+                        $resultado = $con->query($query);
+                        while($row=$resultado->fetch_assoc()){;
+                          ?>
+                          <option value="<?php echo $row['id_move_property'] ." - ". $row['type_movement'];?>"><?php echo $row['id_move_property'] ." - ". $row['type_movement'] ." - $". $row['amount_movement'];?></option>
+                          <?php
+                        }
+                        ?>
+                      </select>
+                    </div>
+                  </div>
+                </div>
                 <div class="form-group">
                   <input type="file" name="uploadVoucher" id="uploadVoucher" class="form-control" required="">
                 </div>
@@ -455,7 +483,8 @@
 <script src="resources/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="resources/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-
+<!-- Select 2 -->
+<script src="resources/bower_components/select2/dist/js/select2.full.js"></script>
 <!-- DataTables -->
 <script src="resources/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="resources/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
@@ -471,32 +500,28 @@
 <script type="text/javascript" src="http://malsup.github.io/jquery.form.js"></script>
 
 <script type="text/javascript" language="javascript">
-  // Funcion JS para subir archivo y mostrar barra de progreso
-  $(document).ready(function(){
-    $('#addVoucher').submit(function(e){
-      if($('#uploadVoucher').val()){
-        e.preventDefault()
-        $('#loader-icon').show()
-        $(this).ajaxSubmit({
-          target: "#targetLayer",
-          beforeSubmit: function(){
-            $('.progress-bar').width('0%');
-          },
-          uploadProgress: function(event, position, total, percentComplete){
-            $('.progress-bar').width(percentComplete+'%')
-            $('.progress-bar').html('<div id="progress-status">'+percentComplete+' %</div>')
-          },
-          success: function(){
-            $('#loader-icon').hide();
-            $('#addVoucher')[0].reset();
-          },
-          resetForm: true,
-        })
-        return false
-      }
+  //-------//
+
+  // Select 2
+  $(function () {
+    //Initialize Select2 Elements
+    $('.select2').select2({
+      width:'100%',
+      language: {
+
+        noResults: function() {
+
+          return "No hay resultado";        
+        },
+        searching: function() {
+
+          return "Buscando..";
+        }
+      },
+      placeholder: "Seleccionar opción",
+      allowClear: true
     })
   });
-  //-------//
 
   var formatNumber = {
      separador: ".", // separador para los miles
@@ -525,9 +550,37 @@
 
     cargarPayNote();
     cargarMove();
+    cargarVoucher();
     addMoveProperty();
     editMove();
-    });
+  });
+
+  // Funcion JS para subir archivo y mostrar barra de progreso
+  $(document).ready(function(){
+    $('#addVoucher').submit(function(e){
+      if($('#uploadVoucher').val()){
+        e.preventDefault()
+        $('#loader-icon').show()
+        $(this).ajaxSubmit({
+          target: "#targetLayer",
+          beforeSubmit: function(){
+            $('.progress-bar').width('0%');
+          },
+          uploadProgress: function(event, position, total, percentComplete){
+            $('.progress-bar').width(percentComplete+'%')
+            $('.progress-bar').html('<div id="progress-status">'+percentComplete+' %</div>')
+          },
+          success: function(){
+            $('#loader-icon').hide();
+            $('#addVoucher')[0].reset();
+            cargarVoucher();
+          },
+          resetForm: true,
+        })
+        return false
+      }
+    })
+  });
 
   // Cargamos la lista de propiedades en relación al propietario
   cargarMove = function () {
@@ -595,7 +648,7 @@
                 {
                     "data": "id_move_property",
                     render: function (data, type, row) {
-                        return "<div class='btn-group'><button button='button' onclick='mostrarMove(" + data + ");' class='btn btn-default' data-toggle='modal' data-target='#modalEditMove'><i class='fa fa-eye'></i></button><button type='button' onclick='deleteMove(" + data + ");' class='btn btn-danger'><i class='fa fa-trash'></i></button></div>"
+                        return "<div class='btn-group btn-group-sm'><button button='button' onclick='mostrarMove(" + data + ");' class='btn btn-default' data-toggle='modal' data-target='#modalEditMove'><i class='fa fa-eye'></i></button><button type='button' onclick='deleteMove(" + data + ");' class='btn btn-danger'><i class='fa fa-trash'></i></button></div>"
                     }
                 }
 
@@ -678,7 +731,82 @@
 
                 //8
                 { "mData": function (data, type, dataToSet) {
-                        return "<div class='btn-group'><button button='button' onclick='mostrarPdf(" + data.number_paynote + ");' class='btn btn-default'><i class='fa fa-file-text-o'></i></button><button type='button' onclick='deleteNotePay(" + data.id_paynote + ");' class='btn btn-danger'><i class='fa fa-trash'></i></button></div>"
+                        return "<div class='btn-group btn-group-sm'><button button='button' onclick='mostrarPdf(" + data.number_paynote + ");' class='btn btn-default'><i class='fa fa-file-text-o'></i></button><button type='button' onclick='deleteNotePay(" + data.id_paynote + ");' class='btn btn-danger'><i class='fa fa-trash'></i></button></div>"
+                    }
+                }
+
+            ], 
+            "language": idioma_spanol
+        });
+    }
+
+    idioma_spanol = {
+        "sProcessing": "Procesando...",
+        "sLengthMenu": "Mostrar _MENU_ registros",
+        "sZeroRecords": "No se encontraron resultados",
+        "sEmptyTable": "Ningún dato disponible en esta tabla",
+        "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+        "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+        "sInfoPostFix": "",
+        "sSearch": "Buscar:",
+        "sUrl": "",
+        "sInfoThousands": ",",
+        "sLoadingRecords": "Cargando...",
+        "oPaginate": {
+            "sFirst": "Primero",
+            "sLast": "Último",
+            "sNext": "Siguiente",
+            "sPrevious": "Anterior"
+        },
+        "oAria": {
+            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+        }
+    }
+
+  // Cargamos la lista de propiedades en relación al propietario
+  cargarVoucher = function () {
+        // Obtenemos el valor por el id
+        id = document.getElementById('id_property').value;
+
+        $("#voucher_data").dataTable({
+            "destroy":true,
+            "order": false,//[[ 0, "desc" ]],
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": false,
+            "info": true,
+            "autoWidth": true,
+            "ajax": {
+                "url": "model/listVoucherModel.php?property="+ id,
+                "method": "POST"
+            },
+            "aoColumns": [
+
+                //1
+                { "mData": function (data, type, dataToSet) {
+                 return data.id_voucher_mov;}
+                },
+                //2
+                { "mData": function (data, type, dataToSet) {
+
+                    return data.name_movement;
+                 }
+                },
+                //3
+                { "mData": function (data, type, dataToSet) {
+                 return data.name_voucher;}
+                },
+                //4
+                { "mData": function (data, type, dataToSet) {
+                  return data.type_file_voucher;}
+                },
+
+                //5
+                { "mData": function (data, type, dataToSet) {
+                        return "<div class='btn-group btn-group-sm'><a href='doc/" + data.url_voucher + "' target='_blank' class='btn btn-sm btn-default'><i class='fa fa-eye'></i></a><button type='button' onclick='deleteVoucher(" + data.id_voucher_mov + ");' class='btn btn-danger'><i class='fa fa-trash'></i></button></div>"
                     }
                 }
 
@@ -802,6 +930,44 @@
                             icon: "success",
                           });
                           cargarPayNote();
+                        }
+                    }
+                });
+                
+              } else {
+                swal("Que bien, no se ha eliminado el registro!");
+              }
+            });
+        }
+    }
+
+  //Script para eliminar nota de pago del registro
+  var deleteVoucher = function (id_voucher_mov) {
+
+        if (!/^([0-9])*$/.test(id_voucher_mov)) {
+            return false
+        } else {
+
+            swal({
+              title: "¿Quieres eliminar el Registro?",
+              text: "Una vez eliminado, no podras recuperarlo!",
+              icon: "warning",
+              buttons: ['Cancelar','Eliminar'],
+              dangerMode: true,
+            })
+
+            .then((willDelete) => {
+              if (willDelete) {
+                $.ajax({
+                    url: "model/deleteVoucher.php",
+                    method: "POST",
+                    data: {id_voucher_mov: id_voucher_mov},
+                    success: function (data) {
+                        if (data == 'ok') {
+                          swal("Eliminado! El registro fue eliminado.", {
+                            icon: "success",
+                          });
+                          cargarVoucher();
                         }
                     }
                 });
@@ -938,23 +1104,11 @@
     }
 
   var mostrarPdf = function(number_paynote){
-    // $("#datos_factura").submit(function(){
-    //   var owner = $("#name_owner").val();
-    //   var number = $("#number_paynote").val();
-
-    //   if (cliente>0)
-    //  {
-    //   VentanaCentrada('./resources/pdf/pdf_blanco.php?number='+number,'Nota de Pago','','1024','768','true');  
-    //  } else {
-    //    alert("Selecciona el cliente");
-    //    return false;
-    //  }
-    // });
     if (!/^([0-9])*$/.test(number_paynote)) {
-            return false
-        } else {
-          VentanaCentrada('./resources/dompdf/pdf_blanco.php?number='+number_paynote,'Nota de Pago','','1024','768','true');  
-        }
+      return false
+    } else {
+      VentanaCentrada('./resources/dompdf/pdf_blanco.php?number='+number_paynote,'Nota de Pago','','1024','768','true');
+    }
   }
  
 </script>
