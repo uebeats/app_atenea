@@ -14,6 +14,6 @@
 // Finalmente, destruye la sesión
 session_destroy();
 
-	header('Location: ../../atenea/login.php');
+	header('Location: ../login.php');
 
 ?>
