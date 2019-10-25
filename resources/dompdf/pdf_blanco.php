@@ -248,28 +248,28 @@
 <?php
 
 	// Include autoloader 
-require_once 'autoload.inc.php';
+    require_once 'autoload.inc.php';
 
 	// Reference the Dompdf namespace 
-use Dompdf\Dompdf; 
+    use Dompdf\Dompdf; 
 
 	// Instantiate and use the dompdf class 
-$dompdf = new Dompdf();
+    $dompdf = new Dompdf();
 
 	//Variables por GET
-$number = $_GET['number'];
+    $number = $_GET['number'];
 
 	// Load content from html file
 	// $html = file_get_contents('../dompdf/pdf.php');
-$dompdf->loadHtml(ob_get_clean()); 
+    $dompdf->loadHtml(ob_get_clean()); 
 
 	// (Optional) Setup the paper size and orientation 
-$dompdf->setPaper('P', 'Letter', 'landscape'); 
+    $dompdf->setPaper('P', 'Letter', 'landscape'); 
 
 	// Render the HTML as PDF 
-$dompdf->render(); 
+    $dompdf->render(); 
 
 	// Output the generated PDF (1 = download and 0 = preview) 
-$dompdf->stream("Nota de Pago", array("Attachment" => 0));
+    $dompdf->stream("Nota de Pago", array("Attachment" => 0));
 
 ?>

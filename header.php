@@ -31,7 +31,7 @@
 
                 <p>
                   <?php nameUser($_SESSION['user_system']);?>
-                  <small>Member since Nov. 2012</small>
+                  <small><?php echo $_SESSION['user_system'];?></small>
                 </p>
               </li>
               <!-- Menu Body -->

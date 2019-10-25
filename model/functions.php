@@ -1,4 +1,9 @@
 <?php
+/*-------------------------
+	Autor: Jesus Caballero
+	Web: propiedadesdng.com
+	Mail: jesus@propiedadesdng.com
+	---------------------------*/
 
 	function nameUser($usuario){
 
@@ -19,7 +24,6 @@
         echo $html;
 	}
 
-	
 	function frasesFooter(){
 		// Completamos el vector con frases
 		$vector = array(

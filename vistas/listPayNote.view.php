@@ -359,7 +359,7 @@
                     if (data == 'ok') {
                         swal({
                           title: "Buen Trabajo!",
-                          text: "El movimiento fue registrado.",
+                          text: "La nota de pago fue registrada.",
                           icon: "success",
                           button: "Ok",
                         });

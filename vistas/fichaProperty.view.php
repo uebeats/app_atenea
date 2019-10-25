@@ -4,6 +4,11 @@
   <?php include 'head.php';?>
   <!-- DataTables -->
   <link rel="stylesheet" href="resources/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+  <style type="text/css">
+    .swal-text{
+      text-align: center!important;
+    }
+  </style>
 </head>
 <body class="hold-transition skin-black sidebar-mini <?php echo $sidebar;?>">
 <div class="wrapper">
@@ -731,7 +736,7 @@
 
                 //8
                 { "mData": function (data, type, dataToSet) {
-                        return "<div class='btn-group btn-group-sm'><button button='button' onclick='mostrarPdf(" + data.number_paynote + ");' class='btn btn-default'><i class='fa fa-file-text-o'></i></button><button type='button' onclick='deleteNotePay(" + data.id_paynote + ");' class='btn btn-danger'><i class='fa fa-trash'></i></button></div>"
+                        return "<div class='btn-group btn-group-sm'><button button='button' onclick='mostrarPdf(" + data.number_paynote + ");' class='btn btn-default'><i class='fa fa-file-text-o'></i></button><button type='button' onclick='deleteNotePay(" + data.id_paynote + ");' class='btn btn-danger'><i class='fa fa-trash'></i></button></button><button type='button' onclick='mailNotePay(" + data.number_paynote + ");' class='btn btn-warning'><i class='fa fa-envelope'></i></button></div>"
                     }
                 }
 
@@ -1058,50 +1063,41 @@
         });
     }
 
-  //Script para añadir propiedad al registro
-  var addPayNote = function () {
-        $('#addPayNote').submit(function (e) {
-            e.preventDefault();
-            var datos = $(this).serialize();
-            // alert(datos);
+  //Script para eliminar nota de pago del registro
+  var mailNotePay = function (number_paynote) {
+
+        if (!/^([0-9])*$/.test(number_paynote)) {
+            return false
+        } else {
+
             swal({
-              title: "Buen Trabajo!",
-              text: datos,
-              icon: "success",
-              button: "Ok",
+              title: "¿Enviar esta Nota de Pago?",
+              text: "Recuerda verificar la recepcion con el destinatario, una vez enviado el documento.",
+              icon: "info",
+              buttons: ['Cancelar','Enviar'],
+              dangerMode: true,
+            })
+
+            .then((willDelete) => {
+              if (willDelete) {
+                $.ajax({
+                    url: "model/mailModel.php?number="+number_paynote,
+                    method: "POST",
+                    data: {number_paynote: number_paynote},
+                    success: function (data) {
+                          swal("Genial! El mensaje ha sido enviado satisfactoriamente.", {
+                            icon: "success",
+                          });
+                          cargarPayNote();
+                    }
+                });
+                
+              } else {
+                swal("La nota de pago no fue enviada, si fue un error vuelve a intentarlo.");
+              }
             });
-            // $.ajax({
-            //     type: "POST",
-            //     url: "model/createPayNote.php",
-            //     data: datos,
-            //     success: function (data) {
-            //         if (data == 'ok') {
-            //             swal({
-            //               title: "Buen Trabajo!",
-            //               text: "El movimiento fue registrado.",
-            //               icon: "success",
-            //               button: "Ok",
-            //             });
-            //             cargarMove();
-            //             $('#addMoveProperty')[0].reset();
-            //             $('#modalAddMove').modal('hide');
-            //             // console.log('Exitazooooooo');
-            //         } else if (data == 'vacio') {
-            //             swal({
-            //               title: "Algo salio mal!",
-            //               text: "Un campo esta vacío, recuerda registrar todos los datos.",
-            //               icon: "error",
-            //               button: "Cerrar",
-            //             });
-            //             $('#addMoveProperty')[0].reset();
-            //             $('#modalAddMove').modal('hide');
-            //         } else {
-            //             console.log(data);
-            //         }
-            //     }
-            // });
-      });
-    }
+        }
+  }
 
   var mostrarPdf = function(number_paynote){
     if (!/^([0-9])*$/.test(number_paynote)) {
