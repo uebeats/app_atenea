@@ -26,7 +26,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="index.php">Atenea <b>DNG</b></a>
+    <a href="index.php"><i style="color: #fff" class="fa fa-user-circle fa-2x"></i></a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
@@ -34,11 +34,12 @@
 
     <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="post">
       <div class="form-group has-feedback">
-        <input name="usuario" type="text" class="form-control" placeholder="Nombre de Usuario" autocomplete="off">
-        <span class="fa fa-envelope form-control-feedback"></span>
+        <span class="fa fa-user form-control-feedback"></span>
+        <input name="usuario" type="text" class="form-control" placeholder="Ingrese su correo electrónico" autocomplete="off">
+        
       </div>
       <div class="form-group has-feedback">
-        <input name="password" type="password" class="form-control" placeholder="Contraseña" autocomplete="off">
+        <input name="password" type="password" class="form-control" placeholder="Ingrese su contraseña" autocomplete="off">
         <span class="fa fa-lock form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
@@ -52,11 +53,14 @@
       <div class="row">
         <!-- /.col -->
         <div class="col-xs-12">
-          <button type="submit" class="btn btn-primary btn-block btn-flat">Acceder <i class="fa fa-sign-in"></i></button>
+          <button type="submit" class="btn btn-success btn-block">Ingresar <i class="fa fa-sign-in"></i></button>
         </div>
         <!-- /.col -->
         <div class="col-xs-12"><br>
           <?php echo $errores;?>
+        </div>
+        <div class="col-xs-12 center">
+          <small>Powered by <a href="https://facebook.com/unicoescritorbeats" target="_blank">Jesús Caballero</a></small>
         </div>
       </div>
     </form>

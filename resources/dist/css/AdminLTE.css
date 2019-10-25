@@ -3301,8 +3301,8 @@ table.text-center th {
 .login-page,
 .register-page {
   height: auto;
-  background-image: url('../../dist/img/bg.png');
-  background-size: cover;
+  background-image: url('../../dist/img/pattern-bg-1.jpg');
+  background-size: contain;
 }
 .login-box,
 .register-box {
@@ -3321,6 +3321,7 @@ table.text-center th {
   background: #fff;
   padding: 20px;
   border-top: 0;
+  border-radius: 5px;
   color: #666;
 }
 .login-box-body .form-control-feedback,
@@ -5035,3 +5036,4 @@ hr {
     white-space: normal !important;
   }
 }
+.center {text-align: center;}
