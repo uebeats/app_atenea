@@ -277,7 +277,7 @@
 
     $timestamp = date('YmdGis') . $number;
 
-    $filename =  $timestamp . '.pdf';
+    $filename =  'tmp_pdf/'. $timestamp . '.pdf';
 
     // Output the generated PDF (1 = download and 0 = preview) 
     // $dompdf->stream("Nota de Pago", array("Attachment" => 0));
