@@ -497,7 +497,7 @@
 <!-- Ventana Centrada JS -->
 <script type="text/javascript" src="resources/dist/js/VentanaCentrada.js"></script>
 <!-- CDN Form Jquery -->
-<script type="text/javascript" src="http://malsup.github.io/jquery.form.js"></script>
+<script type="text/javascript" src="https://malsup.github.io/jquery.form.js"></script>
 
 <script type="text/javascript" language="javascript">
   //-------//
