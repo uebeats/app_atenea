@@ -20,14 +20,14 @@
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <!-- The user image in the navbar-->
-              <img src="resources/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+              <img src="resources/dist/img/icon-user.png" class="user-image" alt="User Image">
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
               <span class="hidden-xs"><?php nameUser($_SESSION['user_system']);?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header">
-                <img src="resources/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                <img src="resources/dist/img/icon-user.png" class="img-circle" alt="User Image">
 
                 <p>
                   <?php nameUser($_SESSION['user_system']);?>
@@ -35,7 +35,7 @@
                 </p>
               </li>
               <!-- Menu Body -->
-              <li class="user-body">
+              <!-- <li class="user-body">
                 <div class="row">
                   <div class="col-xs-4 text-center">
                     <a href="#">Followers</a>
@@ -47,15 +47,14 @@
                     <a href="#">Friends</a>
                   </div>
                 </div>
-                <!-- /.row -->
-              </li>
+              </li> -->
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Perfil</a>
+                  <a href="#" class="btn bg-olive"><i class="fa fa-user"></i> Perfil</a>
                 </div>
                 <div class="pull-right">
-                  <a href="model/cerrarSession.php" class="btn btn-default btn-flat"><i class="fa fa-sign-out"></i> Salir</a>
+                  <a href="model/cerrarSession.php" class="btn btn-danger"><i class="fa fa-sign-out"></i> Salir</a>
                 </div>
               </li>
             </ul>

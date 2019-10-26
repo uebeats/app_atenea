@@ -2,8 +2,10 @@
 <html>
 <head>
   <?php include 'head.php';?>
-  <!-- DataTables -->
+  <!-- DataTables css -->
   <link rel="stylesheet" href="resources/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+  <!-- Fancybox Css -->
+  <link rel="stylesheet" href="resources/plugins/fancybox/src/css/core.css">
   <style type="text/css">
     .swal-text{
       text-align: center!important;
@@ -38,7 +40,6 @@
         </button>
       </h1>
     </section>
-
     <!-- Main content -->
     <section class="content container-fluid">
 
@@ -448,8 +449,15 @@
                     </div>
                   </div>
                 </div>
+                <!-- <div class="form-group">
+                  <input type="file" name="uploadVoucher" id="uploadVoucher" class="file form-control" required="">
+                </div> -->
                 <div class="form-group">
-                  <input type="file" name="uploadVoucher" id="uploadVoucher" class="form-control" required="">
+                  <div class="btn btn-default btn-file">
+                    <i class="fa fa-paperclip"></i> Adjuntar Imagen
+                    <input type="file" name="uploadVoucher" id="uploadVoucher" accept="image/*">
+                  </div>
+                  <p class="help-block">Max. 32MB</p>
                 </div>
                 <div class="form-group">
                   <input type="submit" id="uploadSubmit" class="btn btn-success" value="Subir">
@@ -503,6 +511,8 @@
 <script type="text/javascript" src="resources/dist/js/VentanaCentrada.js"></script>
 <!-- CDN Form Jquery -->
 <script type="text/javascript" src="https://malsup.github.io/jquery.form.js"></script>
+<!-- Fancybox JS -->
+<script src="resources/plugins/fancybox/src/js/core.js"></script>
 
 <script type="text/javascript" language="javascript">
   //-------//
@@ -811,7 +821,7 @@
 
                 //5
                 { "mData": function (data, type, dataToSet) {
-                        return "<div class='btn-group btn-group-sm'><a href='doc/" + data.url_voucher + "' target='_blank' class='btn btn-sm btn-default'><i class='fa fa-eye'></i></a><button type='button' onclick='deleteVoucher(" + data.id_voucher_mov + ");' class='btn btn-danger'><i class='fa fa-trash'></i></button></div>"
+                        return "<div class='btn-group btn-group-sm'><a data-fancybox='gallery' href='doc/" + data.url_voucher + "' target='_blank' class='btn btn-sm btn-default'><i class='fa fa-eye'></i></a><button type='button' onclick='deleteVoucher(" + data.id_voucher_mov + ");' class='btn btn-danger'><i class='fa fa-trash'></i></button></div>"
                     }
                 }
 
