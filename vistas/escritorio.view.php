@@ -4,6 +4,7 @@
   <?php include 'head.php';?>
 </head>
 <body class="hold-transition skin-black sidebar-mini <?php echo $sidebar;?>">
+<div class="loader"></div>
 <div class="wrapper">
 
   <!-- Main Header -->
@@ -35,7 +36,7 @@
       <div class="row">
         <div class="col-lg-3 col-xs-6">
           <!-- small box -->
-          <div class="small-box bg-olive">
+          <div class="small-box bg-green">
             <div class="inner">
               <h3>
               <?php echo $count_owner['id_owner_property'];?>
@@ -53,7 +54,7 @@
         <!-- ./col -->
         <div class="col-lg-3 col-xs-6">
           <!-- small box -->
-          <div class="small-box bg-olive">
+          <div class="small-box bg-green">
             <div class="inner">
               <h3><?php echo $count_property['id_property'];?></h3>
 
@@ -68,7 +69,7 @@
         <!-- ./col -->
         <div class="col-lg-3 col-xs-6">
           <!-- small box -->
-          <div class="small-box bg-olive">
+          <div class="small-box bg-green">
             <div class="inner">
               <h3><?php echo $count_clientes['id_owner_property'];?></h3>
 
@@ -83,7 +84,7 @@
         <!-- ./col -->
         <div class="col-lg-3 col-xs-6">
           <!-- small box -->
-          <div class="small-box bg-olive">
+          <div class="small-box bg-green">
             <div class="inner">
               <h3><?php echo $count_paynote['id_paynote'];?></h3>
 
@@ -97,7 +98,9 @@
         </div>
         <!-- ./col -->
       </div>
+      
     </section>
+
     <!-- /.content -->
 
   </div>
@@ -108,6 +111,7 @@
     <?php include 'footer.php';?>
   </footer>
 
+
 </div>
 <!-- ./wrapper -->
 
@@ -115,17 +119,11 @@
 
 <!-- jQuery 3 -->
 <script src="resources/bower_components/jquery/dist/jquery.min.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script> -->
 <!-- Bootstrap 3.3.7 -->
 <script src="resources/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- AdminLTE App -->
 <script src="resources/dist/js/adminlte.min.js"></script>
 
-<script type="text/javascript">
-
-</script>
-
-<!-- Optionally, you can add Slimscroll and FastClick plugins.
-     Both of these plugins are recommended to enhance the
-     user experience. -->
 </body>
 </html>

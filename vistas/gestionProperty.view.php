@@ -6,8 +6,7 @@
   <link rel="stylesheet" href="resources/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
   <!-- bootstrap datepicker -->
   <link rel="stylesheet" href="resources/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
-  <!-- bootstrap fileinput -->
-  <link rel="stylesheet" href="resources/plugins/dropzone-5.5.0/dist/dropzone.css">
+
   <style type="text/css">
     .cke_textarea_inline {
       border: 1px solid #ccc;
@@ -933,8 +932,6 @@
 <!-- Datepicker -->
 <script src="resources/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 <script src="resources/bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.es.js"></script>
-<!-- CK Editor-->
-<script src="resources/bower_components/ckeditor/ckeditor.js"></script>
 <!-- DataTables -->
 <script src="resources/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="resources/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
@@ -944,8 +941,6 @@
 <script src="resources/dist/js/jquery.rut.js"></script>
 <!-- AdminLTE App -->
 <script src="resources/dist/js/adminlte.min.js"></script>
-<!-- Dropzone -->
-<script type="text/javascript" src="resources/plugins/dropzone-5.5.0/dist/dropzone.js"></script>
 <!-- Moment.js -->
 <script type="text/javascript" src="resources/dist/js/moment.min.js"></script>
 
@@ -1048,7 +1043,7 @@
                 {
                     "data": "id_property",
                     render: function (data, type, row) {
-                        return "<div class='btn-group'><button button='button' onclick='mostrarProperty(" + data + ");' class='btn btn-default' data-toggle='modal' data-target='#modalEditProperty'><i class='fa fa-eye'></i></button><a href='fichaProperty.php?property="+ data +"' class='btn bg-olive'><i class='fa fa-building'></i></a><button type='button' onclick='deleteProperty(" + data + ");' class='btn btn-danger'><i class='fa fa-trash'></i></button></div>"
+                        return "<div class='btn-group'><button button='button' onclick='mostrarProperty(" + data + ");' class='btn bg-orange' data-toggle='modal' data-target='#modalEditProperty'><i class='fa fa-edit'></i></button><a href='fichaProperty.php?property="+ data +"' class='btn btn-primary'><i class='fa fa-building'></i></a><button type='button' onclick='deleteProperty(" + data + ");' class='btn btn-danger'><i class='fa fa-trash'></i></button></div>"
                     }
                 }
 
