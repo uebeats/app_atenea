@@ -11,3 +11,8 @@ Sistema de administración de Inmuebles
 * Se añade la carpeta tmp_pdf para almacenar las notas de pago
 * Se añade libreria Fancybox para abrir imagenes con lightbox
 
+## Update Version 1.0.2
+
+* Se añade la carpeta tmp_pdf para almacenar las notas de pago
+* Se añade libreria Fancybox para abrir imagenes con lightbox
+
