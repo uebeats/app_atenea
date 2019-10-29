@@ -23,14 +23,14 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Nota de Pago
+        Nota de Cobro
         <small>Sistema de Gestión Inmobiliaria</small>
       </h1>
     </section>
     <!-- Main content -->
     <section class="invoice">
       <!-- title row -->
-      <form id="addPayNote" method="POST">
+      <form id="addChargeNote" method="POST">
         <input type="hidden" name="agent_designated" value="<?php nameUser($_SESSION['user_system']);?>">
         <input type="hidden" name="id_property" value="<?php echo $_GET['property'];?>">
 
@@ -54,19 +54,19 @@
           </div>
 
           <?php
-            $q = "SELECT number_paynote FROM tbl_paynote_system ORDER BY id_paynote DESC LIMIT 1";
+            $q = "SELECT number_chargenote FROM tbl_chargenote_system ORDER BY id_chargenote DESC LIMIT 1";
             $res = $con->query($q);
             $rw = $res->fetch_assoc();
           ?>
 
           <div class="col-md-3">
             <div class="form-group">
-              <label>Nota de Pago:</label>
+              <label>Nota de Cobro:</label>
               <div class="input-group">
                 <div class="input-group-addon">
                  NP
                </div>
-               <input type="text" id="number_paynote" name="number_paynote" class="form-control" value="<?php echo $rw['number_paynote']+1;?>" readonly>
+               <input type="text" id="number_chargenote" name="number_chargenote" class="form-control" value="<?php echo $rw['number_chargenote']+1;?>" readonly>
              </div>
             </div>
           </div>
@@ -80,8 +80,8 @@
 
           <div class="col-md-6">
             <div class="form-group">
-              <label>Nombre Propietario:</label>
-              <input type="text" id="name_owner" name="name_owner" class="form-control" value="<?php echo $rw['name_owner'];?>" readonly>
+              <label>Nombre Cliente:</label>
+              <input type="text" id="name_owner" name="name_owner" class="form-control" value="<?php echo $rw['name_client'];?>" readonly>
             </div>
           </div>   
         </div>
@@ -135,7 +135,7 @@
           <div class="col-xs-8">
             <p class="lead">Observaciones Adicionales:</p>
               <div class="form-group">
-                <textarea name="obs_paynote" id="obs_paynote" class="form-control" style="height: 80px">Enviamos detalles de movimientos del periodo.</textarea>
+                <textarea name="obs_paynote" id="obs_paynote" class="form-control" style="height: 80px">Estimado Cliente, detallamos en esta nota de cobro lo adeudado por usted. Recuerde que si tiene alguna duda con respecto al cobro puede llamarnos al +569 9848 0003.</textarea>
               </div>
           </div>
         </div>
@@ -173,7 +173,7 @@
         <!-- this row will not appear when printing -->
         <div class="row no-print">
           <div class="col-xs-12">
-            <button type="submit" class="btn btn-success pull-right"><i class="fa fa-check-circle"></i> Crear Nota de Pago
+            <button type="submit" class="btn btn-success pull-right"><i class="fa fa-check-circle"></i> Crear Nota de Cobro
             </button>
             <a class="btn btn-info" href="fichaProperty.php?property=<?php echo $_GET['property']?>"><i class="fa fa-arrow-circle-left"></i> Volver a la ficha</a>
           </div>
@@ -194,7 +194,7 @@
 
             <div class="modal-body">
               <?php
-                $q = "SELECT number_paynote FROM tbl_paynote_system ORDER BY id_paynote DESC LIMIT 1";
+                $q = "SELECT number_chargenote FROM tbl_chargenote_system ORDER BY id_chargenote DESC LIMIT 1";
                 $res = $con->query($q);
                 $rw_paynote = $res->fetch_assoc();
               ?>
@@ -204,7 +204,7 @@
                 <div class="col-md-12">
                   <div class="form-group">
                     <label>Descripción del Servicio</label>
-                      <select style="text-transform: capitalize;" name="tmp_description" id="tmp_description" class="form-control select2 desc ">
+                      <select style="text-transform: capitalize;" name="tmp_description" id="tmp_description" class="form-control select2 desc">
                         <option></option>
                         <?php
                           $id_property = $_GET['property'];
@@ -331,13 +331,12 @@
 
       }
     })
-    event.preventDefault();
-    
+    event.preventDefault(); 
   })
 
   //Script para añadir nota de pago al registro
-  var addPayNote = function () {
-        $('#addPayNote').submit(function (e) {
+  var addChargeNote = function () {
+        $('#addChargeNote').submit(function (e) {
             e.preventDefault();
             var datos = $(this).serializeArray();
             var total = $('#total_paynote').html();
@@ -353,7 +352,7 @@
 
             $.ajax({
                 type: "POST",
-                url: "model/createPayNote.php",
+                url: "model/createChargeNote.php",
                 data: datos,
                 success: function (data) {
                     if (data == 'ok') {
@@ -385,7 +384,7 @@
     }
 
   mostrar_items();
-  addPayNote();
+  addChargeNote();
   
 </script>
 

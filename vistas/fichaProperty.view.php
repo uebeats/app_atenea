@@ -35,9 +35,10 @@
       <h1>
         <?php echo $titulo;?>
         <small>Sistema de Gestión Inmobiliaria</small>
-        <button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#modalAddMove">
+        <!-- <button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#modalAddMove">
           <i class="fa fa-plus-circle"></i> Nuevo Movimiento
-        </button>
+        </button> -->
+        <a href="javascript:history.back(1)" class="btn btn-success pull-right"><i class="fa fa-mail-reply"></i> Volver atrás</a>
       </h1>
     </section>
     <!-- Main content -->
@@ -97,8 +98,14 @@
               <div class="row">
                 <div class="col-sm-12">
                   <p>Módulos Adicionales:</p>
+                  <a class="btn btn-app" data-toggle="modal" data-target="#modalAddMove">
+                    <i class="fa fa-refresh"></i> Movimiento
+                  </a>
                   <a href="listPayNote.php?property=<?php echo $_GET['property']?>" target="_blank" class="btn btn-app">
                     <i class="fa fa-file-text-o"></i> Nota Pago
+                  </a>
+                  <a href="listChargeNote.php?property=<?php echo $_GET['property']?>" target="_blank" class="btn btn-app">
+                    <i class="fa fa-files-o"></i> Nota Cobro
                   </a>
                   <a class="btn btn-app" data-toggle="modal" data-target="#modalComprobante">
                     <i class="fa fa-cloud-upload"></i> Comprobante
@@ -120,6 +127,7 @@
             <ul class="nav nav-tabs">
               <li class="active"><a href="#movement" data-toggle="tab"><i class="fa fa-refresh"></i> Movimientos</a></li>
               <li><a href="#paynote" data-toggle="tab"><i class="fa fa-file-text-o"></i> Notas de Pago</a></li>
+              <li><a href="#chargenote" data-toggle="tab"><i class="fa fa-files-o"></i> Notas de Cobro</a></li>
               <li><a href="#voucher" data-toggle="tab"><i class="fa fa-file-pdf-o"></i> Comprobante</a></li>
               <!-- <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -155,6 +163,21 @@
               <!-- /.tab-pane -->
               <div class="tab-pane" id="paynote">
                 <table id="paynote_data" class="table table-borderless table-hover table-striped" style="font-size: 1.2rem" width="100%">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>NOTA DE PAGO</th>
+                      <th>DETALLES</th>
+                      <th>MONTO</th>
+                      <th>ESTADO</th>
+                      <th>OPCIONES</th>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+              <!-- /.tab-pane -->
+              <div class="tab-pane" id="chargenote">
+                <table id="chargenote_data" class="table table-borderless table-hover table-striped" style="font-size: 1.2rem" width="100%">
                   <thead>
                     <tr>
                       <th>ID</th>
@@ -564,6 +587,7 @@
     $('[data-toggle="tooltip"]').tooltip();
 
     cargarPayNote();
+    cargarChargeNote();
     cargarMove();
     cargarVoucher();
     addMoveProperty();
@@ -781,6 +805,89 @@
     }
 
   // Cargamos la lista de propiedades en relación al propietario
+  cargarChargeNote = function () {
+        // Obtenemos el valor por el id
+        id = document.getElementById('id_property').value;
+
+        $("#chargenote_data").dataTable({
+            "destroy":true,
+            "order": false,//[[ 0, "desc" ]],
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": false,
+            "info": true,
+            "autoWidth": true,
+            "ajax": {
+                "url": "model/listChargeModel.php?property="+ id,
+                "method": "POST"
+            },
+            "aoColumns": [
+
+                //1
+                { "mData": function (data, type, dataToSet) {
+                 return data.id_chargenote;}
+                },
+                //2
+                { "mData": function (data, type, dataToSet) {
+                 return "N° " + data.number_chargenote;}
+                },
+                //3
+                { "mData": function (data, type, dataToSet) {
+                 return "<b>Emitida a: </b>"+ data.name_owner +"<br><b>Registro:</b> " + moment(data.date_register).format('D/M/Y') + "<br><b>Pago:</b> " + moment(data.date_paynote).format('D/M/Y') + "<br><b>Dirección:</b> " + data.address_property ;}
+                },
+                //4
+                { "mData": function (data, type, dataToSet) {
+                 return "$"+ formatNumber.new(data.total_amount);}
+                },
+                //5
+                { "mData": function (data, type, dataToSet) {
+
+                  if (data.status_chargenote === 'Pagado') {
+                    return "<label class='label label-success'>"+ data.status_chargenote +"</label>";
+                  }else{
+                    return "<label class='label label-danger'>"+ data.status_chargenote +"</label>";
+                  }
+                 }
+                },
+
+                //8
+                { "mData": function (data, type, dataToSet) {
+                        return "<div class='btn-group btn-group-sm'><button button='button' onclick='mostrarCharge(" + data.number_chargenote + ");' class='btn btn-default'><i class='fa fa-file-text-o'></i></button><button type='button' onclick='deleteChargePay(" + data.id_chargenote + ");' class='btn btn-danger'><i class='fa fa-trash'></i></button></button><button type='button' onclick='mailNotePay(" + data.number_chargenote + ");' class='btn btn-warning'><i class='fa fa-envelope'></i></button></div>"
+                    }
+                }
+
+            ], 
+            "language": idioma_spanol
+        });
+    }
+
+    idioma_spanol = {
+        "sProcessing": "Procesando...",
+        "sLengthMenu": "Mostrar _MENU_ registros",
+        "sZeroRecords": "No se encontraron resultados",
+        "sEmptyTable": "Ningún dato disponible en esta tabla",
+        "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+        "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+        "sInfoPostFix": "",
+        "sSearch": "Buscar:",
+        "sUrl": "",
+        "sInfoThousands": ",",
+        "sLoadingRecords": "Cargando...",
+        "oPaginate": {
+            "sFirst": "Primero",
+            "sLast": "Último",
+            "sNext": "Siguiente",
+            "sPrevious": "Anterior"
+        },
+        "oAria": {
+            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+        }
+    }
+
+  // Cargamos la lista de propiedades en relación al propietario
   cargarVoucher = function () {
         // Obtenemos el valor por el id
         id = document.getElementById('id_property').value;
@@ -957,6 +1064,44 @@
     }
 
   //Script para eliminar nota de pago del registro
+  var deleteChargePay = function (id_chargenote) {
+
+        if (!/^([0-9])*$/.test(id_chargenote)) {
+            return false
+        } else {
+
+            swal({
+              title: "¿Quieres eliminar el Registro?",
+              text: "Una vez eliminado, no podras recuperarlo!",
+              icon: "warning",
+              buttons: ['Cancelar','Eliminar'],
+              dangerMode: true,
+            })
+
+            .then((willDelete) => {
+              if (willDelete) {
+                $.ajax({
+                    url: "model/deleteChargeNote.php",
+                    method: "POST",
+                    data: {id_chargenote: id_chargenote},
+                    success: function (data) {
+                        if (data == 'ok') {
+                          swal("Eliminado! El registro fue eliminado.", {
+                            icon: "success",
+                          });
+                          cargarChargeNote();
+                        }
+                    }
+                });
+                
+              } else {
+                swal("Que bien, no se ha eliminado el registro!");
+              }
+            });
+        }
+    }
+
+  //Script para eliminar nota de pago del registro
   var deleteVoucher = function (id_voucher_mov) {
 
         if (!/^([0-9])*$/.test(id_voucher_mov)) {
@@ -1109,11 +1254,55 @@
         }
   }
 
+  //Script para eliminar nota de pago del registro
+  var mailChargePay = function (number_chargenote) {
+
+        if (!/^([0-9])*$/.test(number_chargenote)) {
+            return false
+        } else {
+
+            swal({
+              title: "¿Enviar esta Nota de Pago?",
+              text: "Recuerda verificar la recepcion con el destinatario, una vez enviado el documento.",
+              icon: "info",
+              buttons: ['Cancelar','Enviar'],
+              dangerMode: true,
+            })
+
+            .then((willDelete) => {
+              if (willDelete) {
+                $.ajax({
+                    url: "model/mailChargeModel.php?number="+number_chargenote,
+                    method: "POST",
+                    data: {number_chargenote: number_chargenote},
+                    success: function (data) {
+                          swal("Genial! El mensaje ha sido enviado satisfactoriamente.", {
+                            icon: "success",
+                          });
+                          cargarPayNote();
+                    }
+                });
+                
+              } else {
+                swal("La nota de pago no fue enviada, si fue un error vuelve a intentarlo.");
+              }
+            });
+        }
+  }
+
   var mostrarPdf = function(number_paynote){
     if (!/^([0-9])*$/.test(number_paynote)) {
       return false
     } else {
-      VentanaCentrada('./resources/dompdf/pdf_blanco.php?number='+number_paynote,'Nota de Pago','','1024','768','true');
+      VentanaCentrada('./resources/dompdf/pdf_paynote.php?number='+number_paynote,'Nota de Pago','','1024','768','true');
+    }
+  }
+
+  var mostrarCharge = function(number_chargenote){
+    if (!/^([0-9])*$/.test(number_chargenote)) {
+      return false
+    } else {
+      VentanaCentrada('./resources/dompdf/pdf_chargenote.php?number='+number_chargenote,'Nota de Pago','','1024','768','true');
     }
   }
  
