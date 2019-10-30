@@ -178,7 +178,7 @@
                                 <td>N° Cuenta: <strong>22370736395</strong></td>
                                 
                                 <td>Banco: <strong>Banco Estado</strong></td>
-                                <td>Cuenta: <strong>Cuenta Vista</strong></td>
+                                <td>Cuenta: <strong>Chequera Electrónica</strong></td>
                                 <td width="120">Correo: <strong>contacto@propiedadesdng.com</strong></td>
                             </tr>
                         </tbody>
