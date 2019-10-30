@@ -315,6 +315,8 @@
         $mail->addAddress($emailTo, $nameTo);                       // Add a recipient
         $mail->addReplyTo('contacto@propiedadesdng.com', 'Propiedades DNG | Servicios Inmobiliarios');
         $mail->addCC('oficina@propiedadesdng.com');
+        $mail->addCC('info@propiedadesdng.com');
+        $mail->addCC('contacto@propiedadesdng.com');
         $mail->addCC('jesus@propiedadesdng.com');
         // $mail->addBCC('bcc@example.com');
 
