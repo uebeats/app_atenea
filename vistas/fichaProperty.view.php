@@ -853,7 +853,7 @@
 
                 //8
                 { "mData": function (data, type, dataToSet) {
-                        return "<div class='btn-group btn-group-sm'><button button='button' onclick='mostrarCharge(" + data.number_chargenote + ");' class='btn btn-default'><i class='fa fa-file-text-o'></i></button><button type='button' onclick='deleteChargePay(" + data.id_chargenote + ");' class='btn btn-danger'><i class='fa fa-trash'></i></button></button><button type='button' onclick='mailNotePay(" + data.number_chargenote + ");' class='btn btn-warning'><i class='fa fa-envelope'></i></button></div>"
+                        return "<div class='btn-group btn-group-sm'><button button='button' onclick='mostrarCharge(" + data.number_chargenote + ");' class='btn btn-default'><i class='fa fa-file-text-o'></i></button><button type='button' onclick='deleteChargePay(" + data.id_chargenote + ");' class='btn btn-danger'><i class='fa fa-trash'></i></button></button><button type='button' onclick='mailChargePay(" + data.number_chargenote + ");' class='btn btn-warning'><i class='fa fa-envelope'></i></button></div>"
                     }
                 }
 
@@ -1262,7 +1262,7 @@
         } else {
 
             swal({
-              title: "¿Enviar esta Nota de Pago?",
+              title: "¿Enviar esta Nota de Cobro?",
               text: "Recuerda verificar la recepcion con el destinatario, una vez enviado el documento.",
               icon: "info",
               buttons: ['Cancelar','Enviar'],
