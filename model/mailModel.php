@@ -323,9 +323,14 @@
 
         // Content
         $number = $_GET['number'];
+        $q = "SELECT name_owner FROM tbl_paynote_system WHERE number_paynote = '$number'";
+        $res = $con->query($q);
+        $row = $res->fetch_assoc();
+        $name_owner = $row['name_owner'];
+
         $mail->isHTML(true);                                        // Set email format to HTML
         $mail->Subject = 'Nota de Pago';
-        $mail->Body    = '<b>Estimado Cliente,</b><br>Junto con saludar, le indicamos que hemos adjuntado a este correo electronico la Nota de Pago N°'.$number.'.<br> Si tiene alguna duda, consulta o sugerencia, puede responder a este correo electronico o llamar a los telefonos indicados en la firma.<br><br>
+        $mail->Body    = '<b>Estimado/a '.$name_owner.',</b><br>Junto con saludar, le indicamos que hemos adjuntado a este correo electronico la Nota de Pago N°'.$number.'.<br> Si tiene alguna duda, consulta o sugerencia, puede responder a este correo electronico o llamar a los telefonos indicados en la firma.<br><br>
         <b>Propiedades DNG </b><br> Damos valor a tu propiedad <br>Encuéntranos en Cajales 34, San Felipe <br>Contáctanos al +569 9848 0003 o al +569 7774 2140 <br>info@propiedadesdng.com<br><small>P.D.: Los tildes han sido omitidos en forma intencional.</small>';
         // $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
