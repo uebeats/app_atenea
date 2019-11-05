@@ -13,6 +13,7 @@
   </style>
 </head>
 <body class="hold-transition skin-black sidebar-mini <?php echo $sidebar;?>">
+<div class="loader" style="display: none;"></div>
 <div class="wrapper">
 
   <!-- Main Header -->
@@ -101,10 +102,10 @@
                   <a class="btn btn-app" data-toggle="modal" data-target="#modalAddMove">
                     <i class="fa fa-refresh"></i> Movimiento
                   </a>
-                  <a href="listPayNote.php?property=<?php echo $_GET['property']?>" target="_blank" class="btn btn-app">
+                  <a href="listPayNote.php?property=<?php echo $_GET['property']?>" class="btn btn-app">
                     <i class="fa fa-file-text-o"></i> Nota Pago
                   </a>
-                  <a href="listChargeNote.php?property=<?php echo $_GET['property']?>" target="_blank" class="btn btn-app">
+                  <a href="listChargeNote.php?property=<?php echo $_GET['property']?>" class="btn btn-app">
                     <i class="fa fa-files-o"></i> Nota Cobro
                   </a>
                   <a class="btn btn-app" data-toggle="modal" data-target="#modalComprobante">
@@ -599,7 +600,7 @@
     $('#addVoucher').submit(function(e){
       if($('#uploadVoucher').val()){
         e.preventDefault()
-        $('#loader-icon').show()
+        $('.loader-icon').show()
         $(this).ajaxSubmit({
           target: "#targetLayer",
           beforeSubmit: function(){
@@ -610,7 +611,7 @@
             $('.progress-bar').html('<div id="progress-status">'+percentComplete+' %</div>')
           },
           success: function(){
-            $('#loader-icon').hide();
+            $('.loader-icon').hide();
             $('#addVoucher')[0].reset();
             cargarVoucher();
           },
@@ -770,7 +771,7 @@
 
                 //8
                 { "mData": function (data, type, dataToSet) {
-                        return "<div class='btn-group btn-group-sm'><a href='editNotePay.php?number=" + data.id_paynote + "' class='btn btn-default'><i class='fa fa-eye'></i></a><button button='button' onclick='mostrarPdf(" + data.number_paynote + ");' class='btn btn-danger'><i class='fa fa-file-pdf-o'></i></button></button><button type='button' onclick='mailNotePay(" + data.number_paynote + ");' class='btn btn-warning'><i class='fa fa-envelope'></i></button></div>"
+                        return "<div class='btn-group btn-group-sm'><a href='editNotePay.php?number=" + data.number_paynote + "' class='btn btn-default'><i class='fa fa-eye'></i></a><button button='button' onclick='mostrarPdf(" + data.number_paynote + ");' class='btn btn-danger'><i class='fa fa-file-pdf-o'></i></button></button><button type='button' onclick='mailNotePay(" + data.number_paynote + ");' class='btn btn-warning'><i class='fa fa-envelope'></i></button></div>"
                     }
                 }
 
@@ -1233,13 +1234,15 @@
               dangerMode: true,
             })
 
-            .then((willDelete) => {
-              if (willDelete) {
+            .then((willSend) => {
+              if (willSend) {
+                $('.loader').show();
                 $.ajax({
                     url: "model/mailModel.php?number="+number_paynote,
                     method: "POST",
                     data: {number_paynote: number_paynote},
                     success: function (data) {
+                          $('.loader').hide();
                           swal("Genial! El mensaje ha sido enviado satisfactoriamente.", {
                             icon: "success",
                           });
@@ -1271,11 +1274,13 @@
 
             .then((willDelete) => {
               if (willDelete) {
+                $('.loader').show();
                 $.ajax({
                     url: "model/mailChargeModel.php?number="+number_chargenote,
                     method: "POST",
                     data: {number_chargenote: number_chargenote},
                     success: function (data) {
+                          $('.loader').hide();
                           swal("Genial! El mensaje ha sido enviado satisfactoriamente.", {
                             icon: "success",
                           });

@@ -91,6 +91,7 @@
               <h3><?php echo $count_paynote['id_paynote'];?></h3>
 
               <p>Documentos Generados</p>
+              
             </div>
             <div class="icon">
               <i class="fa fa-folder-open"></i>
