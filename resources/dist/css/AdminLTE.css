@@ -22,7 +22,7 @@ body {
   height: 100%;
   z-index: 9999;
   background: url('../../../resources/dist/img/load-icon.png') 50% 50% no-repeat rgb(249,249,249);
-  opacity: 1;
+  opacity: 0.4;
 }
 .layout-boxed html,
 .layout-boxed body {

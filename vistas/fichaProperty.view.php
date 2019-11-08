@@ -724,6 +724,7 @@
 
   // Cargamos la lista de propiedades en relación al propietario
   cargarPayNote = function () {
+
         // Obtenemos el valor por el id
         id = document.getElementById('id_property').value;
 
@@ -1219,7 +1220,7 @@
         });
     }
 
-  //Script para eliminar nota de pago del registro
+  //Script para enviar nota de pago
   var mailNotePay = function (number_paynote) {
 
         if (!/^([0-9])*$/.test(number_paynote)) {
@@ -1257,7 +1258,7 @@
         }
   }
 
-  //Script para eliminar nota de pago del registro
+  //Script para enviar nota de cobro
   var mailChargePay = function (number_chargenote) {
 
         if (!/^([0-9])*$/.test(number_chargenote)) {

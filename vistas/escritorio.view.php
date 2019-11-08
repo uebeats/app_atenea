@@ -109,12 +109,12 @@
                <table id="paynote_data" class="table table-borderless table-hover table-striped" style="font-size: 1.2rem" width="100%">
                 <thead>
                   <tr>
-                    <th>ID</th>
-                    <th>NOTA DE PAGO</th>
+<!--                     <th>ID</th> -->
+                    <th width="50">N°</th>
                     <th>DETALLES</th>
                     <th>MONTO</th>
                     <th>ESTADO</th>
-                    <th>OPCIONES</th>
+                    <th width="80">OPCIONES</th>
                   </tr>
                 </thead>
               </table>
@@ -151,12 +151,20 @@
 <!-- DataTables -->
 <script src="resources/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="resources/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<!-- Sweet Alert -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <!-- Moment.js -->
 <script type="text/javascript" src="resources/dist/js/moment.min.js"></script>
 <!-- Ventana Centrada JS -->
 <script type="text/javascript" src="resources/dist/js/VentanaCentrada.js"></script>
 
 <script type="text/javascript">
+
+  $(document).ready(function(){
+    cargarPayNote();
+  })
+
+
 
   // Cargamos la lista de propiedades en relación al propietario
   cargarPayNote = function () {
@@ -176,17 +184,17 @@
             },
             "aoColumns": [
 
-                //1
-                { "mData": function (data, type, dataToSet) {
-                 return data.id_paynote;}
-                },
+                // //1
+                // { "mData": function (data, type, dataToSet) {
+                //  return data.id_paynote;}
+                // },
                 //2
                 { "mData": function (data, type, dataToSet) {
                  return "N° " + data.number_paynote;}
                 },
                 //3
                 { "mData": function (data, type, dataToSet) {
-                 return "<b>Registro:</b> " + moment(data.date_register).format('D/M/Y') + "<br><b>Pago:</b> " + moment(data.date_paynote).format('D/M/Y') + "<br><b>Dirección:</b> " + data.address_property ;}
+                 return "<b>Registro:</b> " + moment(data.date_register).format('D/M/Y') + "<br><b>Pago:</b> " + moment(data.date_paynote).format('D/M/Y') + "<br><b>Dirección:</b> " + data.address_property +"<br><b>Pagado a:</b> " + data.name_owner ;}
                 },
                 //4
                 { "mData": function (data, type, dataToSet) {
@@ -205,10 +213,20 @@
 
                 //8
                 { "mData": function (data, type, dataToSet) {
-                        return "<div class='btn-group btn-group-sm'><button button='button' onclick='mostrarPdf(" + data.number_paynote + ");' class='btn btn-danger'><i class='fa fa-file-pdf-o'></i></button></button></div>"
-                    }
-                }
 
+                  if (data.status_paynote === 'Pagado') {
+                    var btnPag = '<button onclick=checkNotePay('+data.id_paynote+') class="btn btn-success"><i class="fa fa-check"></i></button>';
+                  }else{
+                    var btnPag = '<button onclick=checkNotePay('+data.id_paynote+') class="btn btn-danger"><i class="fa fa-times"></i></button>';
+                  }
+
+                  return '<div class="btn-group btn-group-sm"><button button="button" onclick="mostrarPdf(' + data.number_paynote + ')" class="btn btn-default"><i class="fa fa-file-pdf-o"></i></button>'+ btnPag +'</div>'
+                    }
+
+                    // <button onclick=checkNotePay("'+data.status_paynote+'") class="btn btn-success">boton</button>
+
+                  
+                }
             ], 
             "language": idioma_spanol
         });
@@ -267,6 +285,68 @@
     }
   }
 
+  //Script JS
+  var checkNotePay = function (id_paynote) {
+
+    if (!/^([0-9])*$/.test(id_paynote)) {
+      return false
+    } else {
+
+      swal({
+        title: "¿Cambiar estado de Pago?",
+        // text: "Recuerda verificar la recepcion con el destinatario, una vez enviado el documento.",
+        text: "El número de nota de pago es: "+id_paynote+"",
+        icon: "info",
+        buttons: ['Cancelar','Aceptar'],
+        dangerMode: false,
+      })
+
+      .then((willSend) => {
+        if (willSend) {
+          $('.loader').show();
+          $.ajax({
+            url: "model/updateStatusNotePay.php",
+            method: "POST",
+            data: {id_paynote: id_paynote},
+            success: function (data) {
+              if (data == 'ok') {
+                swal({
+                  title: "Buen Trabajo!",
+                  text: "El estado ha cambiado.",
+                  icon: "success",
+                  button: "Ok",
+                });
+                $('.loader').hide();
+                cargarPayNote();
+              } else if (data == 'vacio') {
+                swal({
+                  title: "Algo salio mal!",
+                  text: "El estado no pudo ser cambiado.",
+                  icon: "error",
+                  button: "Cerrar",
+                });
+                $('.loader').hide();
+                cargarPayNote();
+              } else {
+                console.log(data);
+                $('.loader').hide();
+                cargarPayNote();
+              }
+              // $('.loader').hide();
+              // swal("Genial! El mensaje ha sido enviado satisfactoriamente.", {
+              //   icon: "success",
+              // });
+              // cargarPayNote();
+            }
+          });
+
+        } else {
+          swal("El estado de la Nota de Pago no fue cambiado");
+        }
+      });
+    }
+  }
+
   var mostrarCharge = function(number_chargenote){
     if (!/^([0-9])*$/.test(number_chargenote)) {
       return false
@@ -275,7 +355,6 @@
     }
   }
 
-    cargarPayNote();
 </script>
 
 </body>
