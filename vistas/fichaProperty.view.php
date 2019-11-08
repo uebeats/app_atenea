@@ -13,7 +13,8 @@
   </style>
 </head>
 <body class="hold-transition skin-black sidebar-mini <?php echo $sidebar;?>">
-<div class="loader" style="display: none;"></div>
+<div class="load-email" style="display: none;"></div>
+<div class="loader"></div>
 <div class="wrapper">
 
   <!-- Main Header -->
@@ -1237,13 +1238,13 @@
 
             .then((willSend) => {
               if (willSend) {
-                $('.loader').show();
+                $('.load-email').show();
                 $.ajax({
                     url: "model/mailModel.php?number="+number_paynote,
                     method: "POST",
                     data: {number_paynote: number_paynote},
                     success: function (data) {
-                          $('.loader').hide();
+                          $('.load-email').hide();
                           swal("Genial! El mensaje ha sido enviado satisfactoriamente.", {
                             icon: "success",
                           });
@@ -1275,13 +1276,13 @@
 
             .then((willDelete) => {
               if (willDelete) {
-                $('.loader').show();
+                $('.load-email').show();
                 $.ajax({
                     url: "model/mailChargeModel.php?number="+number_chargenote,
                     method: "POST",
                     data: {number_chargenote: number_chargenote},
                     success: function (data) {
-                          $('.loader').hide();
+                          $('.load-email').hide();
                           swal("Genial! El mensaje ha sido enviado satisfactoriamente.", {
                             icon: "success",
                           });
