@@ -305,6 +305,7 @@
         $mail->Username   = 'contacto@propiedadesdng.com';          // SMTP username
         $mail->Password   = 'granallas1';                           // SMTP password
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` also accepted
+        $mail->CharSet    = 'UTF-8';                                // Activa la condificacción utf-8
         $mail->Port       = 587;                                    // TCP port to connect to
 
         $emailTo = $rw_owner['email_owner'];

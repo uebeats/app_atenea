@@ -33,7 +33,7 @@ body {
   width: 100%;
   height: 100%;
   z-index: 9999;
-  background-image: url('https://media.tenor.com/images/1bcfaadb7ed926566b25b16f256a5d1f/tenor.gif') 50% 50% no-repeat rgb(253,253,253);
+  background: url('https://media.tenor.com/images/1bcfaadb7ed926566b25b16f256a5d1f/tenor.gif') 50% 50% no-repeat rgb(253,253,253);
   opacity: .8;
 }
 
