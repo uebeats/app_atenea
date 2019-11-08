@@ -772,7 +772,7 @@
 
                 //8
                 { "mData": function (data, type, dataToSet) {
-                        return "<div class='btn-group btn-group-sm'><a href='editNotePay.php?number=" + data.number_paynote + "' class='btn btn-default'><i class='fa fa-eye'></i></a><button button='button' onclick='mostrarPdf(" + data.number_paynote + ");' class='btn btn-danger'><i class='fa fa-file-pdf-o'></i></button></button><button type='button' onclick='mailNotePay(" + data.number_paynote + ");' class='btn btn-warning'><i class='fa fa-envelope'></i></button></div>"
+                        return "<div class='btn-group btn-group-sm'><a href='editNotePay.php?number=" + data.number_paynote + "' class='btn btn-default disabled'><i class='fa fa-eye'></i></a><button button='button' onclick='mostrarPdf(" + data.number_paynote + ");' class='btn btn-danger'><i class='fa fa-file-pdf-o'></i></button></button><button type='button' onclick='mailNotePay(" + data.number_paynote + ");' class='btn btn-warning'><i class='fa fa-envelope'></i></button></div>"
                     }
                 }
 
