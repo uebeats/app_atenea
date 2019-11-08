@@ -21,9 +21,9 @@ body {
   width: 100%;
   height: 100%;
   z-index: 9999;
-  /*background: url('../../../resources/dist/img/load-icon.png') 50% 50% no-repeat rgb(249,249,249);*/
-  background: url('https://icon-library.net//images/load-icon-gif/load-icon-gif-17.jpg') 50% 50% no-repeat rgb(249,249,249);
-  opacity: 0.8;
+  background: url('../../../resources/dist/img/load-icon.png') 50% 50% no-repeat rgb(249,249,249);
+  /*background: url('https://icon-library.net//images/load-icon-gif/load-icon-gif-17.jpg') 50% 50% no-repeat rgb(249,249,249);*/
+  opacity: .8;
 }
 .layout-boxed html,
 .layout-boxed body {
