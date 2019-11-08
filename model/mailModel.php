@@ -315,6 +315,8 @@
         $mail->addAddress($emailTo, $nameTo);                       // Add a recipient
         $mail->addReplyTo('contacto@propiedadesdng.com', 'Propiedades DNG | Servicios Inmobiliarios');
         $mail->addCC('contacto@propiedadesdng.com');
+        $mail->addCC('jesus@propiedadesdng.com');
+        $mail->addCC('info@propiedadesdng.com');
         // $mail->addBCC('bcc@example.com');
 
         // Attachments
@@ -328,10 +330,54 @@
         $row = $res->fetch_assoc();
         $name_owner = $row['name_owner'];
 
+        ///funcion para eliminar tildes 08-11-19 by Jesús Caballero
+        function eliminar_tildes($cadena){
+
+            //Codificamos la cadena en formato utf8 en caso de que nos de errores
+            $cadena = utf8_encode($cadena);
+
+            //Ahora reemplazamos las letras
+            $cadena = str_replace(
+                array('á', 'à', 'ä', 'â', 'ª', 'Á', 'À', 'Â', 'Ä'),
+                array('a', 'a', 'a', 'a', 'a', 'A', 'A', 'A', 'A'),
+                $cadena
+            );
+
+            $cadena = str_replace(
+                array('é', 'è', 'ë', 'ê', 'É', 'È', 'Ê', 'Ë'),
+                array('e', 'e', 'e', 'e', 'E', 'E', 'E', 'E'),
+                $cadena );
+
+            $cadena = str_replace(
+                array('í', 'ì', 'ï', 'î', 'Í', 'Ì', 'Ï', 'Î'),
+                array('i', 'i', 'i', 'i', 'I', 'I', 'I', 'I'),
+                $cadena );
+
+            $cadena = str_replace(
+                array('ó', 'ò', 'ö', 'ô', 'Ó', 'Ò', 'Ö', 'Ô'),
+                array('o', 'o', 'o', 'o', 'O', 'O', 'O', 'O'),
+                $cadena );
+
+            $cadena = str_replace(
+                array('ú', 'ù', 'ü', 'û', 'Ú', 'Ù', 'Û', 'Ü'),
+                array('u', 'u', 'u', 'u', 'U', 'U', 'U', 'U'),
+                $cadena );
+
+            $cadena = str_replace(
+                array('ñ', 'Ñ', 'ç', 'Ç'),
+                array('n', 'N', 'c', 'C'),
+                $cadena
+            );
+
+            return $cadena;
+        }
+
+        $name_email = eliminar_tildes($name_owner);
+
         $mail->isHTML(true);                                        // Set email format to HTML
-        $mail->Subject = 'Nota de Pago';
-        $mail->Body    = '<b>Estimado/a '.$name_owner.',</b><br>Junto con saludar, le indicamos que hemos adjuntado a este correo electronico la Nota de Pago N°'.$number.'.<br> Si tiene alguna duda, consulta o sugerencia, puede responder a este correo electronico o llamar a los telefonos indicados en la firma.<br><br>
-        <b>Propiedades DNG </b><br> Damos valor a tu propiedad <br>Encuéntranos en Cajales 34, San Felipe <br>Contáctanos al +569 9848 0003 o al +569 7774 2140 <br>info@propiedadesdng.com<br><small>P.D.: Los tildes han sido omitidos en forma intencional.</small>';
+        $mail->Subject = 'IMPORTANTE | Nota de Pago N°'.$number.'';
+        $mail->Body    = '<b>Estimado/a '.$name_email.',</b><br>Junto con saludar, le indicamos que hemos adjuntado a este correo electronico la Nota de Pago N°'.$number.'.<br> Si tiene alguna duda, consulta o sugerencia, puede responder a este correo electronico o llamar a los telefonos indicados en la firma.<br><br>
+        <b>Propiedades DNG </b><br> Damos valor a tu propiedad <br>Encuentranos en Cajales 34, San Felipe <br>Contactanos al +569 9848 0003 o al +569 7774 2140 <br>info@propiedadesdng.com<br><small>P.D.: Los tildes han sido omitidos en forma intencional.</small>';
         // $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
         $mail->send();
