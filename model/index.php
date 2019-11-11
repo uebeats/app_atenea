@@ -4,6 +4,6 @@
 	<title></title>
 </head>
 <body>
-EL SILENCIO ES ORO :)
+EL SILENCIO ES ORO! :)
 </body>
 </html>
