@@ -1,6 +1,4 @@
 .htaccess
 at-config/
-model/mailModel.php
-model/mailChargeModel.php
 doc/
 model/tmp_pdf/*.pdf
