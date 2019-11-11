@@ -1,6 +1,5 @@
 .htaccess
-at-config/conexion.php
-at-config/db.php
+at-config/
 model/mailModel.php
 model/mailChargeModel.php
 doc/
