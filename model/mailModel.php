@@ -18,6 +18,7 @@
     $fecha = date_default_timezone_set('America/Santiago');
 
     global $fecha;
+    $a = 'a';
 
     $number = $_GET['number'];
     $q = "SELECT * FROM tbl_paynote_system WHERE number_paynote = '$number'";
