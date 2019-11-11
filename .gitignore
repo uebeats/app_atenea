@@ -1,4 +1,4 @@
-/.htaccess
+.htaccess
 at-config/
 model/mailModel.php
 model/mailChargeModel.php
