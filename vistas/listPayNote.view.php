@@ -240,7 +240,7 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label>Monto:</label>
-                    <input type="text" class="form-control" id="tmp_amount" name="tmp_amount" required="">
+                    <input type="text" class="form-control amount" id="tmp_amount" name="tmp_amount">
                   </div>
                 </div>
               
@@ -278,7 +278,7 @@
 <!-- AdminLTE App -->
 <script src="resources/dist/js/adminlte.min.js"></script>
 <!-- Select 2 -->
-<script src="resources/bower_components/select2/dist/js/select2.js"></script>
+<script src="resources/bower_components/select2/dist/js/select2.full.js"></script>
 <!-- Sweet Alert -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <!-- Ventana Centrada JS -->
@@ -321,8 +321,8 @@
       type: "POST",
       url:'model/addItemPay.php',
       data: parametros,
-       beforeSend: function(objeto){
-         $('.items').html('Cargando...');
+      beforeSend: function(objeto){
+        $('.items').html('Cargando...');
         },
       success:function(data){
         $(".items").html(data).fadeIn('slow');
@@ -383,6 +383,54 @@
             });
         });
     }
+
+  $(document).ready(function(){
+      $("#tmp_description").change(function(){
+        $("#tmp_description option:selected").each(function() {
+
+          parametros = $(this).val();
+
+          $.ajax({
+            type: "POST",
+            url:'model/jsonAmount.php',
+            data: {parametros: parametros},
+            beforeSend: function(objeto){
+              $('#tmp_amount').val('Cargando...');
+            },
+            success:function(data){
+              $('#tmp_amount').val(data);
+            }
+          })
+          event.preventDefault();
+          // $.post("../main/php/getServicios.php",{ id_materia: id_materia }, function(data){
+          //   $("#cbx_servicio").html(data);
+          // });
+          // alert(id_movement);
+        });
+      })
+  });
+
+  // Select 2
+  $(function () {
+    //Initialize Select2 Elements
+    $('.select2').select2({
+      width:'100%',
+      language: {
+
+        noResults: function() {
+
+          return "No hay resultado";        
+        },
+        searching: function() {
+
+          return "Buscando..";
+        }
+      },
+      placeholder: "Seleccionar opción",
+      allowClear: true
+    })
+  });
+
 
   mostrar_items();
   addPayNote();

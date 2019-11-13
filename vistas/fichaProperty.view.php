@@ -70,8 +70,8 @@
                 <!-- /.col -->
                 <div class="col-sm-4 border-right">
                   <div class="description-block">
-                    <h5 class="description-header"><?php echo $rw['comision_canon'];?>%</h5>
-                    <span class="description-text">Comisión</span>
+                    <h5 class="description-header">$<?php echo number_format($rw['comision_canon'], 0, ",", ".")?></h5>
+                    <span class="description-text">Administración</span>
                   </div>
                   <!-- /.description-block -->
                 </div>

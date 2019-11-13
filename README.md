@@ -16,3 +16,8 @@ Sistema de administración de Inmuebles
 * Se añade la tabla tbl_chargenote_system
 * Se añade la sección Nota de Cobro
 
+## Update Version 1.1
+
+* Set code_property at 500
+* Se cambia formato de comisión
+* Se muestra valor de Movimiento en Input

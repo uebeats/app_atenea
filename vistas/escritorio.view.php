@@ -38,7 +38,7 @@
       <div class="row">
         <div class="col-lg-3 col-xs-6">
           <!-- small box -->
-          <div class="small-box bg-green">
+          <div class="small-box bg-olive">
             <div class="inner">
               <h3>
               <?php echo $count_owner['id_owner_property'];?>
@@ -56,7 +56,7 @@
         <!-- ./col -->
         <div class="col-lg-3 col-xs-6">
           <!-- small box -->
-          <div class="small-box bg-green">
+          <div class="small-box bg-purple">
             <div class="inner">
               <h3><?php echo $count_property['id_property'];?></h3>
 
@@ -71,11 +71,11 @@
         <!-- ./col -->
         <div class="col-lg-3 col-xs-6">
           <!-- small box -->
-          <div class="small-box bg-green">
+          <div class="small-box bg-yellow">
             <div class="inner">
-              <h3><?php echo $count_clientes['id_owner_property'];?></h3>
+              <h3><sup style="font-size: 20px">$</sup>300.000<?php //echo $count_paynote['id_paynote'];?></h3>
 
-              <p>Clientes Registrados</p>
+              <p>Ingresos Consolidados</p>
             </div>
             <div class="icon">
               <i class="fa fa-users"></i>
@@ -86,17 +86,17 @@
         <!-- ./col -->
         <div class="col-lg-3 col-xs-6">
           <!-- small box -->
-          <div class="small-box bg-green">
+          <div class="small-box bg-maroon">
             <div class="inner">
-              <h3><?php echo $count_paynote['id_paynote'];?></h3>
+              <h3><sup style="font-size: 20px">$</sup>300.000<?php //echo $count_paynote['id_paynote'];?></h3>
 
-              <p>Documentos Generados</p>
+              <p>Ingresos por Administración</p>
               
             </div>
             <div class="icon">
-              <i class="fa fa-folder-open"></i>
+              <i class="fa fa-usd"></i>
             </div>
-            <a href="#" class="small-box-footer">Notas de Pago <i class="fa fa-chech-circle"></i></a>
+            <a href="#" class="small-box-footer">Administración<i class="fa fa-chech-circle"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -109,7 +109,6 @@
                <table id="paynote_data" class="table table-borderless table-hover table-striped" style="font-size: 1.2rem" width="100%">
                 <thead>
                   <tr>
-<!--                     <th>ID</th> -->
                     <th width="50">N°</th>
                     <th>DETALLES</th>
                     <th>MONTO</th>

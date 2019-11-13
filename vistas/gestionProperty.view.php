@@ -167,7 +167,12 @@
                             <div class="input-group-addon">
                               DNG
                             </div>
-                            <input type="text" id="code_property" name="code_property" class="form-control" autocomplete="off">
+                              <?php
+                                $query ="SELECT code_property FROM tbl_property_system ORDER BY code_property DESC LIMIT 1";
+                                $resultado = $con->query($query);
+                                $rw_number = $resultado->fetch_assoc();
+                              ?>
+                            <input type="text" id="code_property" name="code_property" class="form-control" readonly value="<?php echo $rw_number['code_property']+1;?>">
                           </div>
                           <!-- /.input group -->
                         </div>
@@ -209,13 +214,14 @@
                       <div class="col-xs-3">
                         <!-- titulo propiedad -->
                         <div class="form-group">
-                          <label>Comisión: <i class="fa fa-info-circle" data-toggle="tooltip" data-placement="top" title="Solo dígitos"></i></label>
+                          <label>Administración: <i class="fa fa-info-circle" data-toggle="tooltip" data-placement="top" title="Solo dígitos"></i></label>
                           <div class="input-group">
+                            <div class="input-group-addon">
+                              <i class="fa fa-usd"></i>
+                            </div>
                             
                             <input type="text" name="comision_canon" id="comision_canon" class="form-control">
-                            <div class="input-group-addon">
-                              <i class="fa fa-percent"></i>
-                            </div>
+                            
                           </div>
                           <!-- /.input group -->
                         </div>
@@ -618,13 +624,13 @@
                       <div class="col-xs-3">
                         <!-- titulo propiedad -->
                         <div class="form-group">
-                          <label>Comisión: <i class="fa fa-info-circle" data-toggle="tooltip" data-placement="top" title="Solo dígitos"></i></label>
+                          <label>Administración: <i class="fa fa-info-circle" data-toggle="tooltip" data-placement="top" title="Solo dígitos"></i></label>
                           <div class="input-group">
+                            <div class="input-group-addon">
+                              <i class="fa fa-usd"></i>
+                            </div>
                             
                             <input type="text" name="comision_edit" id="comision_edit" class="form-control">
-                            <div class="input-group-addon">
-                              <i class="fa fa-percent"></i>
-                            </div>
                           </div>
                           <!-- /.input group -->
                         </div>
@@ -1026,7 +1032,7 @@
                 },
                 //3
                 { "mData": function (data, type, dataToSet) {
-                 return "<b>Canon:</b> $"+ formatNumber.new(data.canon_price) +"<br><b>Comisión:</b> "+ data.comision_canon+"%<br><b>Día Pago:</b> "+ data.day_pay;}
+                 return "<b>Canon:</b> $"+ formatNumber.new(data.canon_price) +"<br><b>Administración:</b> $"+ formatNumber.new(data.comision_canon)+"<br><b>Día Pago:</b> "+ data.day_pay;}
                 },
                 //4
                 { "mData": function (data, type, dataToSet) {
@@ -1043,7 +1049,7 @@
                 {
                     "data": "id_property",
                     render: function (data, type, row) {
-                        return "<div class='btn-group'><button button='button' onclick='mostrarProperty(" + data + ");' class='btn bg-orange' data-toggle='modal' data-target='#modalEditProperty'><i class='fa fa-edit'></i></button><a href='fichaProperty.php?property="+ data +"' class='btn btn-primary'><i class='fa fa-building'></i></a><button type='button' onclick='deleteProperty(" + data + ");' class='btn btn-danger'><i class='fa fa-trash'></i></button></div>"
+                        return "<div class='btn-group'><button button='button' onclick='mostrarProperty(" + data + ");' class='btn bg-olive' data-toggle='modal' data-target='#modalEditProperty'><i class='fa fa-edit'></i></button><a href='fichaProperty.php?property="+ data +"' class='btn btn-default'><i class='fa fa-eye'></i></a><button type='button' onclick='deleteProperty(" + data + ");' class='btn btn-danger'><i class='fa fa-trash'></i></button></div>"
                     }
                 }
 
