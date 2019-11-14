@@ -64,7 +64,7 @@
                   <th>ADMINISTRACIÓN</th>
                   <th>PERÍODO</th>
                   <th>SERVICIOS</th>
-                  <th>OPCIONES</th>
+                  <th width="150px">OPCIONES</th>
                 </tr>
                 </thead>
               </table>
@@ -1049,7 +1049,9 @@
                 {
                     "data": "id_property",
                     render: function (data, type, row) {
-                        return "<div class='btn-group'><button button='button' onclick='mostrarProperty(" + data + ");' class='btn bg-olive' data-toggle='modal' data-target='#modalEditProperty'><i class='fa fa-edit'></i></button><a href='fichaProperty.php?property="+ data +"' class='btn btn-default'><i class='fa fa-eye'></i></a><button type='button' onclick='deleteProperty(" + data + ");' class='btn btn-danger'><i class='fa fa-trash'></i></button></div>"
+                        // return "<div class='btn-group'><button button='button' onclick='mostrarProperty(" + data + ");' class='btn bg-olive' data-toggle='modal' data-target='#modalEditProperty'><i class='fa fa-edit'></i></button><a href='fichaProperty.php?property="+ data +"' class='btn btn-default'><i class='fa fa-eye'></i></a><button type='button' onclick='deleteProperty(" + data + ");' class='btn btn-danger'><i class='fa fa-trash'></i></button></div>"
+
+                        return "<!-- Single button --><div class='btn-group'><button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Mostrar <span class='caret'></span></button><ul class='dropdown-menu'><li><a href='' onclick='mostrarProperty(" + data + ");' data-toggle='modal' data-target='#modalEditProperty'><i class='fa fa-edit'></i>Editar Inmueble</a></li><li><a href='fichaProperty.php?property="+ data +"'><i class='fa fa-eye'></i>Ficha Inmueble</a></li><li><a herf='' onclick='deleteProperty(" + data + ");'><i class='fa fa-trash'></i> Eliminar Inmueble</a></li><li role='separator' class='divider'></li><li><a href='#'>Pronto!</a></li></ul></div>"
                     }
                 }
 
