@@ -88,11 +88,16 @@
               <!-- /.row -->
               <div class="row">
                 <div class="col-sm-12">
+                  <!-- /.description-block -->
+                  <div class="description-block">
+                    <h5 class="description-header"><?php echo $rw['name_client'];?></h5>
+                    <span class="description-text">Arrendatario</span>
+                  </div>
+                  <!-- /.description-block -->
                   <div class="description-block">
                     <h5 class="description-header"><?php echo $rw['address_property'];?></h5>
                     <span class="description-text"><?php echo $rw['city_property'];?></span>
                   </div>
-                  <!-- /.description-block -->
                 </div>
                 <!-- /.col -->
               </div>
@@ -689,7 +694,7 @@
                 {
                     "data": "id_move_property",
                     render: function (data, type, row) {
-                        return "<div class='btn-group btn-group-sm'><button button='button' onclick='mostrarMove(" + data + ");' class='btn btn-default' data-toggle='modal' data-target='#modalEditMove'><i class='fa fa-eye'></i></button><button type='button' onclick='deleteMove(" + data + ");' class='btn btn-danger'><i class='fa fa-trash'></i></button></div>"
+                        return "<div class='btn-group btn-group-sm'><button button='button' onclick='mostrarMove(" + data + ");' class='btn btn-default' data-toggle='modal' data-target='#modalEditMove'><i class='fa fa-edit'></i></button><button type='button' onclick='deleteMove(" + data + ");' class='btn btn-danger'><i class='fa fa-trash'></i></button></div>"
                     }
                 }
 

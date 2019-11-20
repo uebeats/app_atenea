@@ -4,6 +4,11 @@
   <?php include 'head.php';?>
   <!-- DataTables css -->
   <link rel="stylesheet" href="resources/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+  <style type="text/css">
+    .form-date{
+      margin-bottom: 20px;
+    }
+  </style>
 </head>
 <body class="hold-transition skin-black sidebar-mini <?php echo $sidebar;?>">
 <div class="loader"></div>
@@ -36,67 +41,42 @@
     <section class="content container-fluid">
 
       <div class="row">
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-olive">
-            <div class="inner">
-              <h3>
-              <?php echo $count_owner['id_owner_property'];?>
-                
-              </h3>
-
-              <p>Propietarios Registrados</p>
+        <div class="col-lg-8 col-xs-12 form-date">
+          <form class="form-inline" id="formAmount">
+            <div class="form-group">
+              <label for="start_date">Desde:</label>
+              <input type="date" class="form-control" name="start_date" id="start_date">
             </div>
-            <div class="icon">
-              <i class="fa fa-users"></i>
+            <div class="form-group">
+              <label for="end_date">Hasta:</label>
+              <input type="date" class="form-control" name="end_date" id="end_date">
             </div>
-            <a href="gestionOwner.php" class="small-box-footer">Más Info <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
+            <div class="form-group">
+              <label for="end_date">Seleccionar:</label>
+              <select name="from_table" class="form-control">
+                <option value="canon_price">Canon Arriendo</option>
+                <option value="comision_canon">Administración</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-default"><i class="fa fa-search"></i> Mostrar</button>
+          </form>
         </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-purple">
-            <div class="inner">
-              <h3><?php echo $count_property['id_property'];?></h3>
+      </div>
 
-              <p>Propiedades Registradas</p>
-            </div>
-            <div class="icon">
-              <i class="fa fa-building"></i>
-            </div>
-            <a href="gestionProperty.php" class="small-box-footer">Más Info <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
+      <div class="row">
+
         <div class="col-lg-3 col-xs-6">
           <!-- small box -->
           <div class="small-box bg-yellow">
             <div class="inner">
-              <h3><sup style="font-size: 20px">$</sup>300.000<?php //echo $count_paynote['id_paynote'];?></h3>
+              <h3><sup style="font-size: 20px">$ </sup><span id="totalCons">0</span></h3>
 
-              <p>Ingresos Consolidados</p>
+              <p>Total del Período</p>
             </div>
             <div class="icon">
               <i class="fa fa-users"></i>
             </div>
-            <a href="gestionClient.php" class="small-box-footer">Más Info <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-maroon">
-            <div class="inner">
-              <h3><sup style="font-size: 20px">$</sup>300.000<?php //echo $count_paynote['id_paynote'];?></h3>
-
-              <p>Ingresos por Administración</p>
-              
-            </div>
-            <div class="icon">
-              <i class="fa fa-usd"></i>
-            </div>
-            <a href="#" class="small-box-footer">Administración<i class="fa fa-chech-circle"></i></a>
+            <a href="#" class="small-box-footer">Más Info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -121,6 +101,8 @@
           </div>
         </div>
       </div>
+
+      <p></p>
       
     </section>
 
@@ -160,9 +142,27 @@
 <script type="text/javascript">
 
   $(document).ready(function(){
-    cargarPayNote();
+    $('#formAmount').submit(function (e) {
+    e.preventDefault();
+    var datos = $(this).serialize();
+    // swal(datos);
+      $.ajax({
+        type: "POST",
+        url: "model/amountForDate.php",
+        data: datos,
+        success: function (data, type) {
+          console.log(data);
+          // $('#totalCons').html(data);
+          // $('#totalAdmin').html(data);
+        }
+      });
+    });
   })
 
+  $(document).ready(function(){
+    cargarPayNote();
+
+  })
 
 
   // Cargamos la lista de propiedades en relación al propietario
@@ -256,7 +256,7 @@
         }
     }
 
-    var formatNumber = {
+  var formatNumber = {
      separador: ".", // separador para los miles
      sepDecimal: ',', // separador para los decimales
      formatear:function (num){
@@ -276,7 +276,7 @@
      }
    }
 
-   var mostrarPdf = function(number_paynote){
+  var mostrarPdf = function(number_paynote){
     if (!/^([0-9])*$/.test(number_paynote)) {
       return false
     } else {

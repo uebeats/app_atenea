@@ -49,7 +49,7 @@
     					<tbody>
     						<tr>
     							<td><h1 style="text-align: left;"><img src="../../resources/dist/img/logo-quote.png" style="width: 150px"></h1></td>
-    							<td><p style="text-align: center;font-size: 12px"><b>Inmobiliaria de Los Valles Limitada</b><br> contacto@propiedadesdng.com<br>Casa Matriz: Cajales #34, San Felipe<br>Teléfono: (+56) 9 9848 0003</p></td>
+    							<td><p style="text-align: center;font-size: 12px"><b>Inmobiliaria de Los Valles Limitada</b><br>R.U.T.: 76.490.734-5<br> contacto@propiedadesdng.com<br>Casa Matriz: Cajales #34, San Felipe<br>Teléfono: (+56) 9 9848 0003</p></td>
 
     							<td><h1 style="padding-right:30px;font-size: 15px">NOTA DE COBRO N°<?php echo $rw_paynote['number_chargenote'];?></h1></td>
     						</tr>

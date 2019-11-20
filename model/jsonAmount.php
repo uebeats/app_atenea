@@ -12,9 +12,5 @@
 
 	$html = $row['amount_movement'];
 
-	// while($row=$resultado->fetch_assoc())
-	// {
-	// 	$html = $row['amount_movement'];
-	// }
 	echo $html;
 ?>
