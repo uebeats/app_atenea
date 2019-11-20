@@ -151,8 +151,8 @@
         url: "model/amountForDate.php",
         data: datos,
         success: function (data, type) {
-          console.log(data);
-          // $('#totalCons').html(data);
+          // console.log(data);
+          $('#totalCons').html(data);
           // $('#totalAdmin').html(data);
         }
       });
