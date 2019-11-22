@@ -270,6 +270,6 @@
     $dompdf->render(); 
 
 	// Output the generated PDF (1 = download and 0 = preview) 
-    $dompdf->stream("Nota de Pago", array("Attachment" => 0));
+    $dompdf->stream("Nota de Pago - N°". $rw_paynote['number_paynote'] ." - ". $name ."", array("Attachment" => 0));
 
 ?>
