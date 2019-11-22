@@ -8,6 +8,7 @@
 	$date = $_POST['date_register'];
 
 	$date_mov = $_POST['date_movement'];
+	$month_rendir = $_POST['month_rendir'];
 	$type_mov = $_POST['type_movement'];
 	$amount_mov = $_POST['amount_movement'];
 	$obs_mov = $_POST['obs_movement'];
@@ -28,7 +29,7 @@
 	    echo "vacio";
 
 	} else {
-	    $query = "INSERT INTO tbl_move_property (id_property, agent_designated, date_register, date_movement, type_movement, amount_movement, obs_movement, status_movement, status_rend ) VALUES ('$id','$agent','$date','$date_mov','$type_mov','$amount_mov','$obs_mov','$status_mov','$status_rend')";
+	    $query = "INSERT INTO tbl_move_property (id_property, agent_designated, date_register, date_movement, month_rendir, type_movement, amount_movement, obs_movement, status_movement, status_rend ) VALUES ('$id','$agent','$date','$date_mov','$month_rendir','$type_mov','$amount_mov','$obs_mov','$status_mov','$status_rend')";
 	    $resultado = $con->query($query);
 	    if ($resultado) {
 	        echo "ok";

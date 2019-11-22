@@ -7,6 +7,7 @@
 	//
 	$agent = $_POST['agent_edit'];
 	$date = $_POST['register_edit'];
+	$month = $_POST['month_edit'];
 	//
 	$type = $_POST['type_edit'];
 	$amount = $_POST['amount_edit'];
@@ -29,7 +30,7 @@
 	    echo "vacio";
 
 	} else {
-	    $query = "UPDATE tbl_move_property SET agent_designated='$agent',date_register='$date',type_movement='$type',amount_movement='$amount',obs_movement='$obs',status_movement='$status_mov',status_rend='$status_rend' WHERE id_move_property= '$id_move'";
+	    $query = "UPDATE tbl_move_property SET agent_designated='$agent',date_register='$date',month_rendir='$month',type_movement='$type',amount_movement='$amount',obs_movement='$obs',status_movement='$status_mov',status_rend='$status_rend' WHERE id_move_property= '$id_move'";
 	    $resultado = $con->query($query);
 	    if ($resultado) {
 	        echo "ok";

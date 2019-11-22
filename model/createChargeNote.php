@@ -17,7 +17,7 @@
 	if (isset($num)) {
 
 		// Solicitar los campos registrados tbl_tmp_paynote
-		$sql = "SELECT * FROM tbl_tmp_paynote";
+		$sql = "SELECT * FROM tbl_tmp_chargenote";
 		$res = $con->query($sql);
 		while($rw = $res->fetch_assoc()){
 			// Datos volcados de tbl_tmp_paynote
@@ -26,11 +26,11 @@
 			$qty = $rw['tmp_quantity'];
 			$amount = $rw['tmp_amount'];
 
-			$query = "INSERT INTO tbl_detalle_paynote (id_number_paynote, tmp_description, tmp_quantity, tmp_amount) VALUES ('$num','$desc','$qty','$amount')";
+			$query = "INSERT INTO tbl_detalle_chargenote (id_number_paynote, tmp_description, tmp_quantity, tmp_amount) VALUES ('$num','$desc','$qty','$amount')";
 			$resultado = $con->query($query);
 			if (isset($resultado)) {
 				// Eliminar registros de tbl_tmp_paynote
-				$delete = "DELETE FROM tbl_tmp_paynote";
+				$delete = "DELETE FROM tbl_tmp_chargenote";
 				$del = $con->query($delete);
 			}
 		}

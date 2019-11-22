@@ -182,7 +182,7 @@
     </section>
 
     <!-- Modal Editar Movimiento -->
-    <form id="addItemPay" method="POST">
+    <form id="addItemCharge" method="POST">
       <div class="modal fade in" id="modalItemPay" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -218,11 +218,11 @@
                         ?>
                       </select>
                         <?php
-                          $q = "SELECT number_paynote FROM tbl_paynote_system";
+                          $q = "SELECT number_chargenote FROM tbl_chargenote_system ORDER BY id_chargenote DESC LIMIT 1";
                           $res = $con->query($q);
                           $rw = $res->fetch_assoc();
                         ?>
-                        <input type="hidden" class="form-control" id="id_number_paynote" name="id_number_paynote" value="<?php echo $rw['number_paynote']+1;?>">
+                        <input type="hidden" class="form-control" id="id_number_paynote" name="id_number_paynote" value="<?php echo $rw['number_chargenote']+1;?>">
                         <input type="hidden" class="form-control" id="action" name="action" value="ajax">
                   </div>
                 </div>
@@ -289,7 +289,7 @@
   function mostrar_items(){
     var datos = {"action":"ajax"};
     $.ajax({
-      url:'model/addItemPay.php',
+      url:'model/addItemCharge.php',
       data: datos,
        beforeSend: function(objeto){
        $('.items').html('Cargando...');
@@ -303,7 +303,7 @@
   function eliminar_item(id){
     $.ajax({
       type: "GET",
-      url: "model/addItemPay.php",
+      url: "model/addItemCharge.php",
       data: "action=ajax&id_tmp_paynote="+id,
        beforeSend: function(objeto){
          $('.items').html('Cargando...');
@@ -314,19 +314,19 @@
     });
   }
 
-  $( "#addItemPay" ).submit(function( event ) {
+  $( "#addItemCharge" ).submit(function( event ) {
     var parametros = $(this).serialize();
     ///////////////////////////////////////////////////
     $.ajax({
       type: "POST",
-      url:'model/addItemPay.php',
+      url:'model/addItemCharge.php',
       data: parametros,
        beforeSend: function(objeto){
          $('.items').html('Cargando...');
         },
       success:function(data){
         $(".items").html(data).fadeIn('slow');
-        $('#addItemPay')[0].reset();
+        $('#addItemCharge')[0].reset();
         $("#modalItemPay").modal('hide');
 
       }
@@ -382,6 +382,53 @@
             });
         });
     }
+
+  $(document).ready(function(){
+      $("#tmp_description").change(function(){
+        $("#tmp_description option:selected").each(function() {
+
+          parametros = $(this).val();
+
+          $.ajax({
+            type: "POST",
+            url:'model/jsonAmount.php',
+            data: {parametros: parametros},
+            beforeSend: function(objeto){
+              $('#tmp_amount').val('Cargando...');
+            },
+            success:function(data){
+              $('#tmp_amount').val(data);
+            }
+          })
+          event.preventDefault();
+          // $.post("../main/php/getServicios.php",{ id_materia: id_materia }, function(data){
+          //   $("#cbx_servicio").html(data);
+          // });
+          // alert(id_movement);
+        });
+      })
+  });
+
+  // Select 2
+  $(function () {
+    //Initialize Select2 Elements
+    $('.select2').select2({
+      width:'100%',
+      language: {
+
+        noResults: function() {
+
+          return "No hay resultado";        
+        },
+        searching: function() {
+
+          return "Buscando..";
+        }
+      },
+      placeholder: "Seleccionar opción",
+      allowClear: true
+    })
+  });
 
   mostrar_items();
   addChargeNote();

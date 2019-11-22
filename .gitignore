@@ -4,3 +4,5 @@ at-config/
 /model/modelChargeNote.php
 doc/
 model/tmp_pdf/*.pdf
+
+model/mailChargeModel.php

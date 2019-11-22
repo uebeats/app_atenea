@@ -188,7 +188,7 @@
                   <thead>
                     <tr>
                       <th>ID</th>
-                      <th>NOTA DE PAGO</th>
+                      <th>NOTA DE COBRO</th>
                       <th>DETALLES</th>
                       <th>MONTO</th>
                       <th>ESTADO</th>
@@ -256,6 +256,31 @@
                     <i class="fa fa-calendar"></i>
                   </div>
                   <input type="date" id="date_movement" name="date_movement" class="form-control">
+                </div>
+                <!-- /.input group -->
+              </div>
+
+              <!-- nombre propietario -->
+              <div class="form-group">
+                <label>A rendir en:</label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <select name="month_rendir" id="month_rendir" class="form-control">
+                    <option value="ENERO">ENERO</option>
+                    <option value="FEBRERO">FEBRERO</option>
+                    <option value="MARZO">MARZO</option>
+                    <option value="ABRIL">ABRIL</option>
+                    <option value="MAYO">MAYO</option>
+                    <option value="JUNIO">JUNIO</option>
+                    <option value="JULIO">JULIO</option>
+                    <option value="AGOSTO">AGOSTO</option>
+                    <option value="SEPTIEMBRE">SEPTIEMBRE</option>
+                    <option value="OCTUBRE">OCTUBRE</option>
+                    <option value="NOVIEMBRE">NOVIEMBRE</option>
+                    <option value="DICIEMBRE">DICIEMBRE</option>
+                  </select>
                 </div>
                 <!-- /.input group -->
               </div>
@@ -365,6 +390,31 @@
                     <i class="fa fa-calendar"></i>
                   </div>
                   <input type="text" id="register_edit" name="register_edit" class="form-control" readonly>
+                </div>
+                <!-- /.input group -->
+              </div>
+
+              <!-- nombre propietario -->
+              <div class="form-group">
+                <label>A rendir en:</label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <select name="month_edit" id="month_edit" class="form-control">
+                    <option value="ENERO">ENERO</option>
+                    <option value="FEBRERO">FEBRERO</option>
+                    <option value="MARZO">MARZO</option>
+                    <option value="ABRIL">ABRIL</option>
+                    <option value="MAYO">MAYO</option>
+                    <option value="JUNIO">JUNIO</option>
+                    <option value="JULIO">JULIO</option>
+                    <option value="AGOSTO">AGOSTO</option>
+                    <option value="SEPTIEMBRE">SEPTIEMBRE</option>
+                    <option value="OCTUBRE">OCTUBRE</option>
+                    <option value="NOVIEMBRE">NOVIEMBRE</option>
+                    <option value="DICIEMBRE">DICIEMBRE</option>
+                  </select>
                 </div>
                 <!-- /.input group -->
               </div>
@@ -984,6 +1034,7 @@
                     $('#id_move_edit').val(datos.id_move_property);
                     $('#agent_edit').val(datos.agent_designated);
                     $('#register_edit').val(datos.date_register);
+                    $('#month_edit').val(datos.month_rendir);
                     //
                     $('#type_edit').val(datos.type_movement);
                     $('#amount_edit').val(datos.amount_movement);
@@ -1071,7 +1122,7 @@
         }
     }
 
-  //Script para eliminar nota de pago del registro
+  //Script para eliminar nota de cobro del registro
   var deleteChargePay = function (id_chargenote) {
 
         if (!/^([0-9])*$/.test(id_chargenote)) {
@@ -1109,7 +1160,7 @@
         }
     }
 
-  //Script para eliminar nota de pago del registro
+  //Script para eliminar comprobante del registro
   var deleteVoucher = function (id_voucher_mov) {
 
         if (!/^([0-9])*$/.test(id_voucher_mov)) {
@@ -1296,7 +1347,7 @@
                 });
                 
               } else {
-                swal("La nota de pago no fue enviada, si fue un error vuelve a intentarlo.");
+                swal("La nota de cobro no fue enviada, si fue un error vuelve a intentarlo.");
               }
             });
         }
@@ -1314,7 +1365,7 @@
     if (!/^([0-9])*$/.test(number_chargenote)) {
       return false
     } else {
-      VentanaCentrada('./resources/dompdf/pdf_chargenote.php?number='+number_chargenote,'Nota de Pago','','1024','768','true');
+      VentanaCentrada('./resources/dompdf/pdf_chargenote.php?number='+number_chargenote,'Nota de Cobro','','1024','768','true');
     }
   }
  

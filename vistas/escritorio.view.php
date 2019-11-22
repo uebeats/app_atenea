@@ -83,8 +83,17 @@
       </div>
 
       <div class="row">
+        <!-- Notas de Pago Emitidas -->
         <div class="col-lg-6">
           <div class="box box-solid">
+            <div class="box-header with-border">
+              <h3 class="box-title">Notas de Pago Emitidas</h3>
+
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+              </div>
+            </div>
             <div class="box-body">
                <table id="paynote_data" class="table table-borderless table-hover table-striped" style="font-size: 1.2rem" width="100%">
                 <thead>
@@ -100,9 +109,33 @@
             </div>
           </div>
         </div>
-      </div>
+        <!-- Notas de Cobro Emitidas -->
+        <div class="col-lg-6">
+          <div class="box box-solid">
+            <div class="box-header with-border">
+              <h3 class="box-title">Notas de Cobro Emitidas</h3>
 
-      <p></p>
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+              </div>
+            </div>
+            <div class="box-body">
+              <table id="chargenote_data" class="table table-borderless table-hover table-striped" style="font-size: 1.2rem" width="100%">
+                <thead>
+                  <tr>
+                    <th width="50">N°</th>
+                    <th>DETALLES</th>
+                    <th>MONTO</th>
+                    <th>ESTADO</th>
+                    <th width="80">OPCIONES</th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
       
     </section>
 
@@ -161,7 +194,7 @@
 
   $(document).ready(function(){
     cargarPayNote();
-
+    cargarChargeNote();
   })
 
 
@@ -241,6 +274,93 @@
         "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
         "sInfoPostFix": "",
         "sSearch": "<b>Filtrar</b> <i class='fa fa-search'></i>:",
+        "sUrl": "",
+        "sInfoThousands": ",",
+        "sLoadingRecords": "Cargando...",
+        "oPaginate": {
+            "sFirst": "Primero",
+            "sLast": "Último",
+            "sNext": "Siguiente",
+            "sPrevious": "Anterior"
+        },
+        "oAria": {
+            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+        }
+    }
+
+  // Cargamos la lista de propiedades en relación al propietario
+  cargarChargeNote = function () {
+
+        $("#chargenote_data").dataTable({
+            "destroy":true,
+            "order": false,//[[ 0, "desc" ]],
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": false,
+            "info": true,
+            "autoWidth": true,
+            "ajax": {
+                "url": "model/listAllCharge.php",
+                "method": "POST"
+            },
+            "aoColumns": [
+                //2
+                { "mData": function (data, type, dataToSet) {
+                 return "N° " + data.number_chargenote;}
+                },
+                //3
+                { "mData": function (data, type, dataToSet) {
+                 return "<b>Emitida a: </b>"+ data.name_owner +"<br><b>Registro:</b> " + moment(data.date_register).format('D/M/Y') + "<br><b>Pago:</b> " + moment(data.date_paynote).format('D/M/Y') + "<br><b>Dirección:</b> " + data.address_property ;}
+                },
+                //4
+                { "mData": function (data, type, dataToSet) {
+                 return "$"+ formatNumber.new(data.total_amount);}
+                },
+                //5
+                { "mData": function (data, type, dataToSet) {
+
+                  if (data.status_chargenote === 'Pagado') {
+                    return "<label class='label label-success'>"+ data.status_chargenote +"</label>";
+                  }else{
+                    return "<label class='label label-danger'>"+ data.status_chargenote +"</label>";
+                  }
+                 }
+                },
+
+                //8
+                { "mData": function (data, type, dataToSet) {
+
+                  if (data.status_chargenote === 'Pagado') {
+                    var btnPag = '<button onclick=checkNotePay('+data.id_chargenote+') class="btn btn-success"><i class="fa fa-check"></i></button>';
+                  }else{
+                    var btnPag = '<button onclick=checkNotePay('+data.id_chargenote+') class="btn btn-danger"><i class="fa fa-times"></i></button>';
+                  }
+
+                  return '<div class="btn-group btn-group-sm"><button button="button" onclick="mostrarCharge(' + data.number_chargenote + ')" class="btn btn-default"><i class="fa fa-file-pdf-o"></i></button>'+ btnPag +'</div>'
+                    }
+
+                    // <button onclick=checkNotePay("'+data.status_paynote+'") class="btn btn-success">boton</button>
+
+                  
+                }
+
+            ], 
+            "language": idioma_spanol
+        });
+    }
+
+    idioma_spanol = {
+        "sProcessing": "Procesando...",
+        "sLengthMenu": "Mostrar _MENU_ registros",
+        "sZeroRecords": "No se encontraron resultados",
+        "sEmptyTable": "Ningún dato disponible en esta tabla",
+        "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+        "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+        "sInfoPostFix": "",
+        "sSearch": "Buscar:",
         "sUrl": "",
         "sInfoThousands": ",",
         "sLoadingRecords": "Cargando...",
