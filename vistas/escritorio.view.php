@@ -333,9 +333,9 @@
                 { "mData": function (data, type, dataToSet) {
 
                   if (data.status_chargenote === 'Pagado') {
-                    var btnPag = '<button onclick=checkNotePay('+data.id_chargenote+') class="btn btn-success"><i class="fa fa-check"></i></button>';
+                    var btnPag = '<button onclick=checkChargePay('+data.id_chargenote+') class="btn btn-success"><i class="fa fa-check"></i></button>';
                   }else{
-                    var btnPag = '<button onclick=checkNotePay('+data.id_chargenote+') class="btn btn-danger"><i class="fa fa-times"></i></button>';
+                    var btnPag = '<button onclick=checkChargePay('+data.id_chargenote+') class="btn btn-danger"><i class="fa fa-times"></i></button>';
                   }
 
                   return '<div class="btn-group btn-group-sm"><button button="button" onclick="mostrarCharge(' + data.number_chargenote + ')" class="btn btn-default"><i class="fa fa-file-pdf-o"></i></button>'+ btnPag +'</div>'
@@ -450,6 +450,68 @@
                 console.log(data);
                 $('.loader').hide();
                 cargarPayNote();
+              }
+              // $('.loader').hide();
+              // swal("Genial! El mensaje ha sido enviado satisfactoriamente.", {
+              //   icon: "success",
+              // });
+              // cargarPayNote();
+            }
+          });
+
+        } else {
+          swal("El estado de la Nota de Pago no fue cambiado");
+        }
+      });
+    }
+  }
+
+  //Script JS
+  var checkChargePay = function (id_chargenote) {
+
+    if (!/^([0-9])*$/.test(id_chargenote)) {
+      return false
+    } else {
+
+      swal({
+        title: "¿Cambiar estado de Pago?",
+        // text: "Recuerda verificar la recepcion con el destinatario, una vez enviado el documento.",
+        text: "El número de nota de pago es: "+id_chargenote+"",
+        icon: "info",
+        buttons: ['Cancelar','Aceptar'],
+        dangerMode: false,
+      })
+
+      .then((willSend) => {
+        if (willSend) {
+          $('.loader').show();
+          $.ajax({
+            url: "model/updateStatusChargepay.php",
+            method: "POST",
+            data: {id_chargenote: id_chargenote},
+            success: function (data) {
+              if (data == 'ok') {
+                swal({
+                  title: "Buen Trabajo!",
+                  text: "El estado ha cambiado.",
+                  icon: "success",
+                  button: "Ok",
+                });
+                $('.loader').hide();
+                cargarChargeNote();
+              } else if (data == 'vacio') {
+                swal({
+                  title: "Algo salio mal!",
+                  text: "El estado no pudo ser cambiado.",
+                  icon: "error",
+                  button: "Cerrar",
+                });
+                $('.loader').hide();
+                cargarChargeNote();
+              } else {
+                console.log(data);
+                $('.loader').hide();
+                cargarChargeNote();
               }
               // $('.loader').hide();
               // swal("Genial! El mensaje ha sido enviado satisfactoriamente.", {
