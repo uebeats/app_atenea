@@ -465,6 +465,67 @@
       });
     }
   }
+  //Script JS
+  var checkChargePay = function (id_chargenote) {
+
+    if (!/^([0-9])*$/.test(id_chargenote)) {
+      return false
+    } else {
+
+      swal({
+        title: "¿Cambiar estado de Cobro?",
+        // text: "Recuerda verificar la recepcion con el destinatario, una vez enviado el documento.",
+        text: "El número de nota de cobro es: "+id_chargenote+"",
+        icon: "info",
+        buttons: ['Cancelar','Aceptar'],
+        dangerMode: false,
+      })
+
+      .then((willSend) => {
+        if (willSend) {
+          $('.loader').show();
+          $.ajax({
+            url: "model/updateStatusChargepay.php",
+            method: "POST",
+            data: {id_chargenote: id_chargenote},
+            success: function (data) {
+              if (data == 'ok') {
+                swal({
+                  title: "Buen Trabajo!",
+                  text: "El estado ha cambiado.",
+                  icon: "success",
+                  button: "Ok",
+                });
+                $('.loader').hide();
+                cargarChargeNote();
+              } else if (data == 'vacio') {
+                swal({
+                  title: "Algo salio mal!",
+                  text: "El estado no pudo ser cambiado.",
+                  icon: "error",
+                  button: "Cerrar",
+                });
+                $('.loader').hide();
+                cargarChargeNote();
+              } else {
+                console.log(data);
+                $('.loader').hide();
+                cargarChargeNote();
+              }
+              // $('.loader').hide();
+              // swal("Genial! El mensaje ha sido enviado satisfactoriamente.", {
+              //   icon: "success",
+              // });
+              // cargarPayNote();
+            }
+          });
+
+        } else {
+          swal("El estado de la Nota de Pago no fue cambiado");
+        }
+      });
+    }
+  }
 
   var mostrarCharge = function(number_chargenote){
     if (!/^([0-9])*$/.test(number_chargenote)) {
