@@ -212,7 +212,7 @@
                           $resultado = $con->query($query);
                           while($row=$resultado->fetch_assoc()){
                         ?>
-                          <option value="<?php echo $row['type_movement'];?>"><?php echo $row['type_movement'] . " | " . $row['status_movement'] . " | $" . $row['amount_movement'];?></option>
+                          <option value="<?php echo $row['id_move_property'];?>"><?php echo $row['type_movement'] . " | " . $row['status_movement'] . " | $" . $row['amount_movement'];?></option>
                         <?php
                         }
                         ?>

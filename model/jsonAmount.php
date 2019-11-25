@@ -1,9 +1,9 @@
 <?php
 	require_once ("../at-config/conexion.php");//Contiene funcion que conecta a la base de datos
 
-	$tmp_movement = $_POST['parametros'];
+	$id_move = $_POST['parametros'];
 
-	$query = "SELECT amount_movement FROM tbl_move_property WHERE type_movement = '$tmp_movement'";
+	$query = "SELECT amount_movement FROM tbl_move_property WHERE id_move_property = '$id_move'";
 	$resultado = $con->query($query);
 
 	$html = "";
