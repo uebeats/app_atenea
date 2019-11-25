@@ -474,7 +474,7 @@
     } else {
 
       swal({
-        title: "¿Cambiar estado de Pago?",
+        title: "¿Cambiar estado de Cobro?",
         // text: "Recuerda verificar la recepcion con el destinatario, una vez enviado el documento.",
         text: "El número de nota de pago es: "+id_chargenote+"",
         icon: "info",
