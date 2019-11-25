@@ -485,7 +485,7 @@
         if (willSend) {
           $('.loader').show();
           $.ajax({
-            url: "model/updateStatusChargepay.php",
+            url: "model/updateStatusChargePay.php",
             method: "POST",
             data: {id_chargenote: id_chargenote},
             success: function (data) {
