@@ -102,7 +102,15 @@
 						    ?>
     						<tr class="even_row">
     							<td style="text-align: center"><?php echo $items;?></td>
-    							<td><?php echo $r['tmp_description'];?></td>
+    							<td>
+                                <?php 
+                                    $detalle = $r['tmp_description'];
+                                    $q = "SELECT type_movement FROM tbl_move_property WHERE id_move_property = '$detalle'";
+                                    $sel = $con->query($q);
+                                    $row = $sel->fetch_assoc();
+                                    echo $row['type_movement'];
+                                ?>    
+                                </td>
     							<td style="text-align: center"><?php echo $r['tmp_quantity'];?></td>
     							<td style="text-align: right; border-right-style: none;">$</td>
     							<td class="change_order_unit_col" style="border-left-style: none;"><?php $amount = $r['tmp_amount']; echo number_format($amount, 0,'','.')?></td>
