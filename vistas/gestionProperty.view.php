@@ -1013,7 +1013,7 @@
          
             action: function ( e, dt, node, config ) {
                 // alert( this.text() );
-                window.location.assign("http://localhost/app_atenea/printProperty.php");
+                window.location.assign("https://app.propiedadesdng.com/printProperty.php");
             }
         };
 
