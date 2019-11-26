@@ -13,9 +13,12 @@
 	    echo "vacio";
 
 	} else {
-	    $query = "DELETE FROM tbl_chargenote_system WHERE id_chargenote = '$id_chargenote' ";
+	    $query = "DELETE FROM tbl_chargenote_system WHERE number_chargenote = '$id_chargenote' ";
 	    $resultado = $con->query($query);
 	    if ($resultado) {
+	    	$del = "DELETE FROM tbl_detalle_chargenote WHERE id_number_paynote = '$id_chargenote'";
+	    	$res = $con->query($del);
+
 	        echo "ok";
 	    }else{
 	        die("Error" . mysqli_error($con));

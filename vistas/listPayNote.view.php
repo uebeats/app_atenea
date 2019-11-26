@@ -165,7 +165,7 @@
           <div class="col-md-4">
             <div class="form-group">
               <label>Fecha Pago:</label>
-              <input type="date" id="date_paynote" name="date_paynote" class="form-control">
+              <input type="date" id="date_paynote" name="date_paynote" class="form-control" required="">
             </div>
           </div>
         </div>

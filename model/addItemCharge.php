@@ -41,7 +41,13 @@ if($action == 'ajax'){
 	?>
 	<tr>
 		<td class='text-center'><?php echo $items;?></td>
-		<td><?php echo $row['tmp_description'];?></td>
+		<td><?php 
+			$detalle = $row['tmp_description'];
+			$q = "SELECT type_movement FROM tbl_move_property WHERE id_move_property = '$detalle'";
+			$sel = $con->query($q);
+			$r = $sel->fetch_assoc();
+			echo $r['type_movement'];
+		?></td>
 		<td class='text-center'><?php echo $row['tmp_quantity'];?></td>
 		<td class='text-right'>$<?php echo $row['tmp_amount'];?></td>
 		<td class='text-right'>$<?php echo $total;?></td>

@@ -13,9 +13,12 @@
 	    echo "vacio";
 
 	} else {
-	    $query = "DELETE FROM tbl_paynote_system WHERE id_paynote = '$id_paynote' ";
+	    $query = "DELETE FROM tbl_paynote_system WHERE number_paynote = '$id_paynote' ";
 	    $resultado = $con->query($query);
 	    if ($resultado) {
+	    	$del = "DELETE FROM tbl_detalle_paynote WHERE id_number_paynote = '$id_paynote'";
+	    	$res = $con->query($del);
+	    	
 	        echo "ok";
 	    }else{
 	        die("Error" . mysqli_error($con));

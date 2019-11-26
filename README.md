@@ -21,3 +21,10 @@ Sistema de administración de Inmuebles
 * Set code_property at 500
 * Se cambia formato de comisión
 * Se muestra valor de Movimiento en Input
+
+## Update Version 1.3
+
+* Actualización de registro de notas de pago y notas de cobro
+* Listado de notas de pago y notas de cobro en dashboard
+* Button Delete: ficha de la propiedad para las notas de pago y cobro
+* Modificación de archivos relacionados al ingreso de items a NP y NC

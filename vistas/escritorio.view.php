@@ -226,7 +226,7 @@
                 },
                 //3
                 { "mData": function (data, type, dataToSet) {
-                 return "<b>Dirección:</b> " + data.address_property +"<br><b>Pagado a:</b> " + data.name_owner ;}
+                 return "<b>Para:</b> " + data.name_owner + "<br><b>Emisión:</b> " + moment(data.date_register).format('D/M/Y') +"<br><b>Dirección:</b> " + data.address_property ;}
                 },
                 //4
                 { "mData": function (data, type, dataToSet) {
@@ -312,7 +312,7 @@
                 },
                 //3
                 { "mData": function (data, type, dataToSet) {
-                 return "<b>Emitida a: </b>"+ data.name_owner +"<br><b>Registro:</b> " + moment(data.date_register).format('D/M/Y') + "<br><b>Pago:</b> " + moment(data.date_paynote).format('D/M/Y') + "<br><b>Dirección:</b> " + data.address_property ;}
+                 return "<b>Para: </b>"+ data.name_owner +"<br><b>Emisión:</b> " + moment(data.date_register).format('D/M/Y') + "<br><b>Dirección:</b> " + data.address_property ;}
                 },
                 //4
                 { "mData": function (data, type, dataToSet) {

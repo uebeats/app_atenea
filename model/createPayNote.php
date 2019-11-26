@@ -84,28 +84,4 @@
 	    }
 	}
 
-	// if (isset($number_paynote)) {
-
-	// 	// Include autoloader 
-	// 	require_once 'resources/dompdf/autoload.inc.php';
-
-	// 	// Reference the Dompdf namespace 
-	// 	use Dompdf\Dompdf; 
-		 
-	// 	// Instantiate and use the dompdf class 
-	// 	$dompdf = new Dompdf();
-
-	// 	// Load content from html file
-	// 	$html = file_get_contents('pdf/createPayNote.view.php');
-	// 	$dompdf->loadHtml($html); 
-		 
-	// 	// (Optional) Setup the paper size and orientation 
-	// 	$dompdf->setPaper('P', 'Letter', 'landscape'); 
-		 
-	// 	// Render the HTML as PDF 
-	// 	$dompdf->render(); 
-		 
-	// 	// Output the generated PDF (1 = download and 0 = preview) 
-	// 	$dompdf->stream("Nota de Pago", array("Attachment" => 0));
-	// }
 ?>

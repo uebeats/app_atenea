@@ -1007,6 +1007,16 @@
         // Obtenemos el valor por el id
         // id_property = document.getElementById("id_owner_property").value;
 
+        //REDIRECCIONAR CON BOTON JS DATATABLES
+        $.fn.dataTable.ext.buttons.alert = {
+            className: 'buttons-alert',
+         
+            action: function ( e, dt, node, config ) {
+                // alert( this.text() );
+                window.location.assign("http://localhost/app_atenea/gestionProperty.php");
+            }
+        };
+
         $("#tableProperty").dataTable({
             "destroy":true,
             "order": false,//[[ 0, "desc" ]],
@@ -1016,6 +1026,19 @@
             "ordering": false,
             "info": true,
             "autoWidth": true,
+            "dom": "<'row'<'form-inline' <'col-sm-6'B><'col-sm-6'f>>>"
+          +"<rt>"
+          +"<'row'<'form-inline'"
+          +"<'col-sm-6 col-md-6 col-lg-6'l>"
+          +"<'col-sm-6 col-md-6 col-lg-6'p>>>",//'Bfrtip'
+          "buttons": [
+        //Btn Imprimir
+        {
+            extend: 'alert',
+            text: '<i class="fa fa-print"></i> Imprimir',
+            className:'btn btn-default',
+        },
+    ],
             "ajax": {
                 "url": "model/listProperty.php",
                 "method": "POST"
@@ -1051,13 +1074,14 @@
                     render: function (data, type, row) {
                         // return "<div class='btn-group'><button button='button' onclick='mostrarProperty(" + data + ");' class='btn bg-olive' data-toggle='modal' data-target='#modalEditProperty'><i class='fa fa-edit'></i></button><a href='fichaProperty.php?property="+ data +"' class='btn btn-default'><i class='fa fa-eye'></i></a><button type='button' onclick='deleteProperty(" + data + ");' class='btn btn-danger'><i class='fa fa-trash'></i></button></div>"
 
-                        return "<!-- Single button --><div class='btn-group'><button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Mostrar <span class='caret'></span></button><ul class='dropdown-menu'><li><a href='' onclick='mostrarProperty(" + data + ");' data-toggle='modal' data-target='#modalEditProperty'><i class='fa fa-edit'></i>Editar Inmueble</a></li><li><a href='fichaProperty.php?property="+ data +"'><i class='fa fa-eye'></i>Ficha Inmueble</a></li><li><a herf='' onclick='deleteProperty(" + data + ");'><i class='fa fa-trash'></i> Eliminar Inmueble</a></li><li role='separator' class='divider'></li><li><a href='#'>Pronto!</a></li></ul></div>"
+                        return "<!-- Single button --><div class='ocultar-elemento btn-group'><button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Mostrar <span class='caret'></span></button><ul class='dropdown-menu'><li><a href='' onclick='mostrarProperty(" + data + ");' data-toggle='modal' data-target='#modalEditProperty'><i class='fa fa-edit'></i>Editar Inmueble</a></li><li><a href='fichaProperty.php?property="+ data +"'><i class='fa fa-eye'></i>Ficha Inmueble</a></li><li><a herf='' onclick='deleteProperty(" + data + ");'><i class='fa fa-trash'></i> Eliminar Inmueble</a></li><li role='separator' class='divider'></li><li><a href='#'>Pronto!</a></li></ul></div>"
                     }
                 }
 
             ], 
             "language": idioma_spanol
         });
+
     }
 
     idioma_spanol = {

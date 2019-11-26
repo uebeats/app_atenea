@@ -64,7 +64,7 @@
               <label>Nota de Cobro:</label>
               <div class="input-group">
                 <div class="input-group-addon">
-                 NP
+                 NC
                </div>
                <input type="text" id="number_chargenote" name="number_chargenote" class="form-control" value="<?php echo $rw['number_chargenote']+1;?>" readonly>
              </div>
@@ -165,7 +165,7 @@
           <div class="col-md-4">
             <div class="form-group">
               <label>Fecha Pago:</label>
-              <input type="date" id="date_paynote" name="date_paynote" class="form-control">
+              <input type="date" id="date_paynote" name="date_paynote" class="form-control" required="">
             </div>
           </div>
         </div>
@@ -196,7 +196,7 @@
               <?php
                 $q = "SELECT number_chargenote FROM tbl_chargenote_system ORDER BY id_chargenote DESC LIMIT 1";
                 $res = $con->query($q);
-                $rw_paynote = $res->fetch_assoc();
+                $rw_chargenote = $res->fetch_assoc();
               ?>
               <input type="hidden" name="agent_designated" value="<?php echo $_SESSION['user_system'];?>">
             
@@ -204,7 +204,7 @@
                 <div class="col-md-12">
                   <div class="form-group">
                     <label>Descripción del Servicio</label>
-                      <select style="text-transform: capitalize;" name="tmp_description" id="tmp_description" class="form-control select2 desc">
+                      <select style="text-transform: capitalize;" name="tmp_description" id="tmp_description" class="form-control select2 desc ">
                         <option></option>
                         <?php
                           $id_property = $_GET['property'];
@@ -212,17 +212,17 @@
                           $resultado = $con->query($query);
                           while($row=$resultado->fetch_assoc()){
                         ?>
-                          <option value="<?php echo $row['type_movement'];?>"><?php echo $row['type_movement'] . " | " . $row['status_movement'] . " | $" . $row['amount_movement'];?></option>
+                          <option value="<?php echo $row['id_move_property'];?>"><?php echo $row['type_movement'] . " | " . $row['status_movement'] . " | $" . $row['amount_movement'];?></option>
                         <?php
                         }
                         ?>
                       </select>
                         <?php
-                          $q = "SELECT number_chargenote FROM tbl_chargenote_system ORDER BY id_chargenote DESC LIMIT 1";
+                          $q = "SELECT number_paynote FROM tbl_paynote_system";
                           $res = $con->query($q);
                           $rw = $res->fetch_assoc();
                         ?>
-                        <input type="hidden" class="form-control" id="id_number_paynote" name="id_number_paynote" value="<?php echo $rw['number_chargenote']+1;?>">
+                        <input type="hidden" class="form-control" id="id_number_paynote" name="id_number_paynote" value="<?php echo $rw_chargenote['number_chargenote']+1;?>">
                         <input type="hidden" class="form-control" id="action" name="action" value="ajax">
                   </div>
                 </div>
@@ -240,7 +240,7 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label>Monto:</label>
-                    <input type="text" class="form-control" id="tmp_amount" name="tmp_amount" required="">
+                    <input type="text" class="form-control amount" id="tmp_amount" name="tmp_amount">
                   </div>
                 </div>
               
@@ -295,7 +295,7 @@
        $('.items').html('Cargando...');
       },
       success:function(data){
-        $(".items").html(data).fadeIn('slow');
+        $('.items').html(data).fadeIn('slow');
     }
     })
   }
@@ -309,7 +309,7 @@
          $('.items').html('Cargando...');
         },
       success: function(data){
-        $(".items").html(data).fadeIn('slow');
+        $('.items').html(data).fadeIn('slow');
       }
     });
   }
@@ -325,7 +325,7 @@
          $('.items').html('Cargando...');
         },
       success:function(data){
-        $(".items").html(data).fadeIn('slow');
+        $('.items').html(data).fadeIn('slow');
         $('#addItemCharge')[0].reset();
         $("#modalItemPay").modal('hide');
 
@@ -334,7 +334,7 @@
     event.preventDefault(); 
   })
 
-  //Script para añadir nota de pago al registro
+  //Script para añadir nota de cobro al registro
   var addChargeNote = function () {
         $('#addChargeNote').submit(function (e) {
             e.preventDefault();
@@ -358,7 +358,7 @@
                     if (data == 'ok') {
                         swal({
                           title: "Buen Trabajo!",
-                          text: "La nota de pago fue registrada.",
+                          text: "La nota de cobro fue registrada.",
                           icon: "success",
                           button: "Ok",
                         });
