@@ -1013,7 +1013,7 @@
          
             action: function ( e, dt, node, config ) {
                 // alert( this.text() );
-                window.location.assign("http://localhost/app_atenea/gestionProperty.php");
+                window.location.assign("http://localhost/app_atenea/printProperty.php");
             }
         };
 
@@ -1276,5 +1276,6 @@
     $('.nav-tabs > .active').prev('li').find('a').trigger('click');
   });
 </script>
+<script src="https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js"></script>
 </body>
 </html>

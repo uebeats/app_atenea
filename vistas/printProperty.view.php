@@ -3,7 +3,7 @@
 <head>
   <?php include 'head.php';?>
 </head>
-<body onload="window.print();">
+<body scroll="no" onload="window.print();">
 <!-- <body> -->
 <div class="wrapper">
   <!-- Main content -->
