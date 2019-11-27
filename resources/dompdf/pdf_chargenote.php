@@ -89,8 +89,8 @@
     						</tr>
     						<?php
     							$tax = 0;
-
-						        $select = "SELECT * FROM tbl_detalle_paynote WHERE id_number_paynote = '$number'";
+                                
+						        $select = "SELECT * FROM tbl_detalle_chargenote WHERE id_number_paynote = '$number'";
 						        $result = $con->query($select);
 
 						        $items=1;
