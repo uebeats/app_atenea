@@ -7,7 +7,7 @@
 
 	// $key = $_GET['id_property'];
 
-	$query = "SELECT * FROM tbl_property_system ORDER BY code_property DESC";
+	$query = "SELECT * FROM tbl_property_system ORDER BY name_owner ASC";
 	$resultado = $con->query($query);
 	while ($row = $resultado->fetch_array()){
 		$datos['data'][] = $row;

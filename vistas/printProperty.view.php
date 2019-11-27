@@ -36,6 +36,7 @@
     					
     					<tbody style="font-size: 12px">
     						<tr>
+                                <th style="background: #f5f5f5;text-align: center;border-left: 1px solid #000">#</th>
     							<th style="background: #f5f5f5;text-align: center;border-left: 1px solid #000">DNG</th>
     							<th style="background: #f5f5f5;text-align: center;border-left: 1px solid #000">Propietario</th>
     							<th style="background: #f5f5f5;text-align: center;border-left: 1px solid #000">Arrendatario</th>
@@ -45,11 +46,15 @@
                                 <th style="background: #f5f5f5;text-align: center;border-left: 1px solid #000">Rendición</th>
     						</tr>
                             <?php
+                                $items = 0;
+
                                 $qry = "SELECT * FROM tbl_property_system";
                                 $result = $con->query($qry);
                                 while($rw = $result->fetch_assoc()){
+                                    $items++;
                             ?>
     						<tr class="even_row">
+                                <td style="text-align: center;background: white;"><?php echo $items;?></td>
     							<td style="text-align: center;background: white;"><?php echo $rw['code_property'];?></td>
     							<td style="text-align: center;background: white;"><?php echo $rw['name_owner'];?></td>
     							<td style="text-align: center;background: white;"><?php echo $rw['name_client'];?></td>

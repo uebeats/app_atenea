@@ -1020,11 +1020,11 @@
 
         $("#tableProperty").dataTable({
             "destroy":true,
-            "order": false,//[[ 0, "desc" ]],
+            "order": [],//[[ 0, "desc" ]],
             "paging": true,
             "lengthChange": true,
             "searching": true,
-            "ordering": false,
+            "ordering": true,
             "info": true,
             "autoWidth": true,
             "dom": "<'row'<'form-inline' <'col-sm-6'B><'col-sm-6'f>>>"
