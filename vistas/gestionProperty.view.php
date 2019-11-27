@@ -1014,6 +1014,7 @@
             action: function ( e, dt, node, config ) {
                 // alert( this.text() );
                 window.location.assign("https://app.propiedadesdng.com/printProperty.php");
+                // window.location.assign("http://localhost/app_atenea/printProperty.php");
             }
         };
 
