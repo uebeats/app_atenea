@@ -208,7 +208,7 @@
                         <option></option>
                         <?php
                           $id_property = $_GET['property'];
-                          $query ="SELECT * FROM tbl_move_property WHERE id_property = $id_property";
+                          $query ="SELECT * FROM tbl_move_property WHERE id_property = $id_property AND status_rend = 'No Rendido' ";
                           $resultado = $con->query($query);
                           while($row=$resultado->fetch_assoc()){
                         ?>
