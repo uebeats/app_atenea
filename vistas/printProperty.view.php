@@ -48,7 +48,7 @@
                             <?php
                                 $items = 0;
 
-                                $qry = "SELECT * FROM tbl_property_system";
+                                $qry = "SELECT * FROM tbl_property_system ORDER BY name_owner ASC";
                                 $result = $con->query($qry);
                                 while($rw = $result->fetch_assoc()){
                                     $items++;

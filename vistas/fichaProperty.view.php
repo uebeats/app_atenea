@@ -292,7 +292,18 @@
                   <div class="input-group-addon">
                     <i class="fa fa-refresh"></i>
                   </div>
-                  <input type="text" id="type_movement" name="type_movement" class="form-control" placeholder="TIPO DE MOVIMIENTO" autocomplete="off">
+                  <select id="type_movement" name="type_movement" class="form-control">
+                    <?php
+                      $query ="SELECT * FROM tbl_type_movement";
+                      $resultado = $con->query($query);
+                      while($row=$resultado->fetch_assoc()){;
+                    ?>
+                      <option value="<?php echo $row['name_movement'];?>"><?php echo $row['name_movement'];?></option>
+                    <?php
+                      }
+                    ?>
+                  </select>
+                  <!-- <input type="text" id="type_movement" name="type_movement" class="form-control" placeholder="TIPO DE MOVIMIENTO" autocomplete="off"> -->
                 </div>
                 <!-- /.input group -->
               </div>
@@ -426,7 +437,18 @@
                   <div class="input-group-addon">
                     <i class="fa fa-refresh"></i>
                   </div>
-                  <input type="text" id="type_edit" name="type_edit" class="form-control">
+                  <select id="type_edit" name="type_edit" class="form-control">
+                    <?php
+                      $query ="SELECT * FROM tbl_type_movement";
+                      $resultado = $con->query($query);
+                      while($row=$resultado->fetch_assoc()){;
+                    ?>
+                      <option value="<?php echo $row['name_movement'];?>"><?php echo $row['name_movement'];?></option>
+                    <?php
+                      }
+                    ?>
+                  </select>
+                  <!-- <input type="text" id="type_edit" name="type_edit" class="form-control"> -->
                 </div>
                 <!-- /.input group -->
               </div>
