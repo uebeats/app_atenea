@@ -31,7 +31,7 @@
           </ul>
         </li>
         <li class="<?php echo $active_property;?>"><a href="gestionProperty.php"><i class="fa fa-building"></i> <span>Inmuebles</span></a></li>
-        <li class="<?php echo $active_option;?>"><a href="#"><i class="fa fa-cogs"></i> <span>Opciones</span></a></li>
+        <li class="<?php echo $active_option;?>"><a href="optionSystem.php"><i class="fa fa-cogs"></i> <span>Opciones</span></a></li>
         <!-- <li class="treeview <?php echo $active_clients;?>">
           <a href="#"><i class="fa fa-users"></i> <span>Propietarios</span>
             <span class="pull-right-container">
