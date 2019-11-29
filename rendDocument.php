@@ -22,8 +22,7 @@
   $sidebar = "sidebar-collapse";
 
   $active_dash = "";
-  $active_docs = "active";
-  $active_calls = "";
+  $active_docs = "";
   $active_property = "";
   $active_clients = "";
   $active_options = "";

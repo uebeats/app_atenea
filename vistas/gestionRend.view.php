@@ -44,7 +44,7 @@
         <div class="col-lg-6" style="padding-bottom: 10px">
           <div class="btn-group">
             <a href="rendDocument.php" class="btn btn-success"><i class="fa fa-plus-circle"></i> Nueva Rendición</a>
-            <button type="button" class="btn btn-warning"><i class="fa fa-plus-circle"></i> Nueva Cotización</button>
+            <button type="button" class="btn btn-success"><i class="fa fa-plus-circle"></i> Nueva Cotización</button>
           </div>
         </div>
       </div>
@@ -88,7 +88,7 @@
               </div>
             </div>
             <div class="box-body">
-              <table id="chargenote_data" class="table table-borderless table-hover table-striped" style="font-size: 1.2rem" width="100%">
+              <table id="quote_data" class="table table-borderless table-hover table-striped" style="font-size: 1.2rem" width="100%">
                 <thead>
                   <tr>
                     <th width="50">N°</th>
@@ -166,7 +166,7 @@
 
   $(document).ready(function(){
     cargarPayNote();
-    cargarChargeNote();
+    cargarQuoteNote();
   })
 
 
@@ -218,13 +218,13 @@
                 //8
                 { "mData": function (data, type, dataToSet) {
 
-                  if (data.status_rend === 'Pagado') {
-                    var btnPag = '<button onclick=checkNotePay('+data.id_rend+') class="btn btn-success"><i class="fa fa-check"></i></button>';
-                  }else{
-                    var btnPag = '<button onclick=checkNotePay('+data.id_rend+') class="btn btn-danger"><i class="fa fa-times"></i></button>';
-                  }
+                  // if (data.status_rend === 'Pagado') {
+                  //   var btnPag = '<button onclick=checkNotePay('+data.id_rend+') class="btn btn-success"><i class="fa fa-check"></i></button>';
+                  // }else{
+                  //   var btnPag = '<button onclick=checkNotePay('+data.id_rend+') class="btn btn-danger"><i class="fa fa-times"></i></button>';
+                  // }
 
-                  return '<div class="btn-group btn-group-sm"><button button="button" onclick="mostrarPdf(' + data.number_rend + ')" class="btn btn-default"><i class="fa fa-file-pdf-o"></i></button>'+ btnPag +'</div>'
+                  return '<div class="btn-group btn-group-sm"><button button="button" onclick="mostrarPdf(' + data.number_rend + ')" class="btn btn-default"><i class="fa fa-file-pdf-o"></i></button><button type="button" onclick="mailNotePay(' + data.number_rend + ');" class="btn btn-warning disabled"><i class="fa fa-envelope"></i></button></div>'
                     }
 
                     // <button onclick=checkNotePay("'+data.status_paynote+'") class="btn btn-success">boton</button>
@@ -262,9 +262,9 @@
     }
 
   // Cargamos la lista de propiedades en relación al propietario
-  cargarChargeNote = function () {
+  cargarQuoteNote = function () {
 
-        $("#chargenote_data").dataTable({
+        $("#quote_data").dataTable({
             "destroy":true,
             "order": false,//[[ 0, "desc" ]],
             "paging": true,
@@ -274,17 +274,22 @@
             "info": true,
             "autoWidth": true,
             "ajax": {
-                "url": "model/listAllCharge.php",
+                "url": "model/listAllQuotes.php",
                 "method": "POST"
             },
             "aoColumns": [
+
+                // //1
+                // { "mData": function (data, type, dataToSet) {
+                //  return data.id_paynote;}
+                // },
                 //2
                 { "mData": function (data, type, dataToSet) {
-                 return "N° " + data.number_chargenote;}
+                 return "N° " + data.number_rend;}
                 },
                 //3
                 { "mData": function (data, type, dataToSet) {
-                 return "<b>Para: </b>"+ data.name_owner +"<br><b>Emisión:</b> " + moment(data.date_register).format('D/M/Y') + "<br><b>Dirección:</b> " + data.address_property ;}
+                 return "<b>Para:</b> " + data.name_owner + "<br><b>Emisión:</b> " + moment(data.date_register).format('D/M/Y') +"<br><b>Dirección:</b> " + data.address_property ;}
                 },
                 //4
                 { "mData": function (data, type, dataToSet) {
@@ -293,10 +298,10 @@
                 //5
                 { "mData": function (data, type, dataToSet) {
 
-                  if (data.status_chargenote === 'Pagado') {
-                    return "<label class='label label-success'>"+ data.status_chargenote +"</label>";
+                  if (data.status_rend === 'Pagado') {
+                    return "<label class='label label-success'>"+ data.status_rend +"</label>";
                   }else{
-                    return "<label class='label label-danger'>"+ data.status_chargenote +"</label>";
+                    return "<label class='label label-danger'>"+ data.status_rend +"</label>";
                   }
                  }
                 },
@@ -304,20 +309,19 @@
                 //8
                 { "mData": function (data, type, dataToSet) {
 
-                  if (data.status_chargenote === 'Pagado') {
-                    var btnPag = '<button onclick=checkChargePay('+data.id_chargenote+') class="btn btn-success"><i class="fa fa-check"></i></button>';
+                  if (data.status_rend === 'Pagado') {
+                    var btnPag = '<button onclick=checkNotePay('+data.id_rend+') class="btn btn-success"><i class="fa fa-check"></i></button>';
                   }else{
-                    var btnPag = '<button onclick=checkChargePay('+data.id_chargenote+') class="btn btn-danger"><i class="fa fa-times"></i></button>';
+                    var btnPag = '<button onclick=checkNotePay('+data.id_rend+') class="btn btn-danger"><i class="fa fa-times"></i></button>';
                   }
 
-                  return '<div class="btn-group btn-group-sm"><button button="button" onclick="mostrarCharge(' + data.number_chargenote + ')" class="btn btn-default"><i class="fa fa-file-pdf-o"></i></button>'+ btnPag +'</div>'
+                  return '<div class="btn-group btn-group-sm"><button button="button" onclick="mostrarPdf(' + data.number_rend + ')" class="btn btn-default"><i class="fa fa-file-pdf-o"></i></button><button type="button" onclick="mailNotePay(' + data.number_rend + ');" class="btn btn-warning disabled"><i class="fa fa-envelope"></i></button></div>'
                     }
 
                     // <button onclick=checkNotePay("'+data.status_paynote+'") class="btn btn-success">boton</button>
 
                   
                 }
-
             ], 
             "language": idioma_spanol
         });
@@ -332,7 +336,7 @@
         "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
         "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
         "sInfoPostFix": "",
-        "sSearch": "Buscar:",
+        "sSearch": "<b>Filtrar</b> <i class='fa fa-search'></i>:",
         "sUrl": "",
         "sInfoThousands": ",",
         "sLoadingRecords": "Cargando...",
@@ -347,6 +351,7 @@
             "sSortDescending": ": Activar para ordenar la columna de manera descendente"
         }
     }
+
 
   var formatNumber = {
      separador: ".", // separador para los miles
@@ -376,130 +381,7 @@
     }
   }
 
-  //Script JS
-  var checkNotePay = function (id_paynote) {
-
-    if (!/^([0-9])*$/.test(id_paynote)) {
-      return false
-    } else {
-
-      swal({
-        title: "¿Cambiar estado de Pago?",
-        // text: "Recuerda verificar la recepcion con el destinatario, una vez enviado el documento.",
-        text: "El número de nota de pago es: "+id_paynote+"",
-        icon: "info",
-        buttons: ['Cancelar','Aceptar'],
-        dangerMode: false,
-      })
-
-      .then((willSend) => {
-        if (willSend) {
-          $('.loader').show();
-          $.ajax({
-            url: "model/updateStatusNotePay.php",
-            method: "POST",
-            data: {id_paynote: id_paynote},
-            success: function (data) {
-              if (data == 'ok') {
-                swal({
-                  title: "Buen Trabajo!",
-                  text: "El estado ha cambiado.",
-                  icon: "success",
-                  button: "Ok",
-                });
-                $('.loader').hide();
-                cargarPayNote();
-              } else if (data == 'vacio') {
-                swal({
-                  title: "Algo salio mal!",
-                  text: "El estado no pudo ser cambiado.",
-                  icon: "error",
-                  button: "Cerrar",
-                });
-                $('.loader').hide();
-                cargarPayNote();
-              } else {
-                console.log(data);
-                $('.loader').hide();
-                cargarPayNote();
-              }
-              // $('.loader').hide();
-              // swal("Genial! El mensaje ha sido enviado satisfactoriamente.", {
-              //   icon: "success",
-              // });
-              // cargarPayNote();
-            }
-          });
-
-        } else {
-          swal("El estado de la Nota de Pago no fue cambiado");
-        }
-      });
-    }
-  }
-  //Script JS
-  var checkChargePay = function (id_chargenote) {
-
-    if (!/^([0-9])*$/.test(id_chargenote)) {
-      return false
-    } else {
-
-      swal({
-        title: "¿Cambiar estado de Cobro?",
-        // text: "Recuerda verificar la recepcion con el destinatario, una vez enviado el documento.",
-        text: "El número de nota de cobro es: "+id_chargenote+"",
-        icon: "info",
-        buttons: ['Cancelar','Aceptar'],
-        dangerMode: false,
-      })
-
-      .then((willSend) => {
-        if (willSend) {
-          $('.loader').show();
-          $.ajax({
-            url: "model/updateStatusChargePay.php",
-            method: "POST",
-            data: {id_chargenote: id_chargenote},
-            success: function (data) {
-              if (data == 'ok') {
-                swal({
-                  title: "Buen Trabajo!",
-                  text: "El estado ha cambiado.",
-                  icon: "success",
-                  button: "Ok",
-                });
-                $('.loader').hide();
-                cargarChargeNote();
-              } else if (data == 'vacio') {
-                swal({
-                  title: "Algo salio mal!",
-                  text: "El estado no pudo ser cambiado.",
-                  icon: "error",
-                  button: "Cerrar",
-                });
-                $('.loader').hide();
-                cargarChargeNote();
-              } else {
-                console.log(data);
-                $('.loader').hide();
-                cargarChargeNote();
-              }
-              // $('.loader').hide();
-              // swal("Genial! El mensaje ha sido enviado satisfactoriamente.", {
-              //   icon: "success",
-              // });
-              // cargarPayNote();
-            }
-          });
-
-        } else {
-          swal("El estado de la Nota de Pago no fue cambiado");
-        }
-      });
-    }
-  }
-
-  var mostrarCharge = function(number_chargenote){
+  var mostrarQuote = function(number_chargenote){
     if (!/^([0-9])*$/.test(number_chargenote)) {
       return false
     } else {

@@ -19,11 +19,11 @@
   $titulo = "Opciones del Sistema";
   $sidebar = "sidebar-collapse";
 
-  $active_dash = "active";
+  $active_dash = "";
   $active_calls = "";
   $active_property = "";
   $active_clients = "";
-  $active_options = "";
+  $active_docs= "active";
 
   include 'vistas/optionSystem.view.php';
 ?>

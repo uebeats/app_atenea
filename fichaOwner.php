@@ -27,11 +27,11 @@
   $originalDate = $rw['date_register'];
   $newDate = date('d-m-Y', strtotime($originalDate));
 
-  $active_dash = "";
-  $active_owner = "active";
+  $active_escritorio = "";
   $active_property = "";
-  $active_clients = "";
+  $active_client = "active";
   $active_options = "";
+  $active_docs = "";
 
 
 

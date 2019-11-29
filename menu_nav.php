@@ -19,7 +19,7 @@
         <!-- Optionally, you can add icons to the links -->
 
         <!-- escritorio -->
-        <li class="<?php echo $active_dash;?>"><a href="index.php"><i class="fa fa-dashboard"></i> <span>Escritorio</span></a></li>
+        <li class="<?php echo $active_escritorio;?>"><a href="index.php"><i class="fa fa-dashboard"></i> <span>Escritorio</span></a></li>
         <!-- contactos -->
         <li class="treeview <?php echo $active_client;?>">
           <a href="#"><i class="fa fa-user"></i><span>Contactos</span>
@@ -36,41 +36,9 @@
         <!-- administración -->
         <li class="<?php echo $active_property;?>"><a href="gestionProperty.php"><i class="fa fa-building"></i> <span>Administración</span></a></li>
         <!-- documentos -->
-        <li class="treeview menu-open <?php echo $active_docs;?>" style="height: auto;">
-          <a href="#">
-            <i class="fa fa-folder"></i> <span>Documentos</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu" style="display: block;">
-            <li><a href="gestionRend.php"><i class="fa fa-circle-o"></i> Rendiciones</a></li>
-            <li class="treeview" style="height: auto;">
-              <a href="#"><i class="fa fa-circle-o"></i> Level One
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu" style="display: none;">
-                <li><a href="#"><i class="fa fa-circle-o"></i> Level Two</a></li>
-                <li class="treeview">
-                  <a href="#"><i class="fa fa-circle-o"></i> Level Two
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu" style="display: none;">
-                    <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
-          </ul>
-        </li>
+        <li class="<?php echo $active_docs;?>"><a href="gestionRend.php"><i class="fa fa-folder-open"></i> <span>Documentos</span></a></li>
         <!-- configuraciones-->
-        <li class="<?php echo $active_option;?>"><a href="optionSystem.php"><i class="fa fa-cog"></i> <span>Configuraciones</span></a></li>
+        <li class="<?php echo $active_options;?>"><a href="optionSystem.php"><i class="fa fa-cog"></i> <span>Configuraciones</span></a></li>
         
 
       </ul>

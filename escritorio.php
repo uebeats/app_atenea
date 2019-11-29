@@ -19,11 +19,11 @@
   $titulo = "Panel Administración";
   $sidebar = "sidebar-collapse";
 
-  $active_dash = "active";
-  $active_calls = "";
+  $active_escritorio = "active";
   $active_property = "";
-  $active_clients = "";
+  $active_client = "";
   $active_options = "";
+  $active_docs = "";
 
   include 'vistas/escritorio.view.php';
 ?>

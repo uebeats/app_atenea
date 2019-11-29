@@ -25,11 +25,11 @@
   $res = $con->query($q);
   $rw = $res->fetch_assoc();
 
-  $active_dash = "";
-  $active_owner = "";
+  $active_escritorio = "";
   $active_property = "active";
-  $active_clients = "";
+  $active_client = "";
   $active_options = "";
+  $active_docs = "";
 
   include 'vistas/fichaProperty.view.php';
 ?>
