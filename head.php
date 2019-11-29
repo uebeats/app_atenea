@@ -14,6 +14,8 @@
 <link rel="stylesheet" href="resources/dist/css/AdminLTE.css">
 <!-- Custom style -->
 <link rel="stylesheet" type="text/css" href="resources/dist/css/custom.css">
+<!-- Toastr 2.1.4 -->
+<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
 page. However, you can choose any other skin. Make sure you
 apply the skin class to the body tag so the changes take effect. -->

@@ -34,7 +34,7 @@
     				<table class="change_order_items">
 
     					
-    					<tbody style="font-size: 12px">
+    					<tbody style="font-size: 10px">
     						<tr>
                                 <th style="background: #f5f5f5;text-align: center;border-left: 1px solid #000">#</th>
     							<th style="background: #f5f5f5;text-align: center;border-left: 1px solid #000">DNG</th>
@@ -44,6 +44,8 @@
     							<th style="background: #f5f5f5;text-align: center;border-left: 1px solid #000">Día Pago</th>
                                 <th style="background: #f5f5f5;text-align: center;border-left: 1px solid #000">Pago</th>
                                 <th style="background: #f5f5f5;text-align: center;border-left: 1px solid #000">Rendición</th>
+                                <th style="background: #f5f5f5;text-align: center;border-left: 1px solid #000">Agente</th>
+
     						</tr>
                             <?php
                                 $items = 0;
@@ -54,15 +56,17 @@
                                     $items++;
                             ?>
     						<tr class="even_row">
-                                <td style="text-align: center;background: white;"><?php echo $items;?></td>
-    							<td style="text-align: center;background: white;"><?php echo $rw['code_property'];?></td>
-    							<td style="text-align: center;background: white;"><?php echo $rw['name_owner'];?></td>
-    							<td style="text-align: center;background: white;"><?php echo $rw['name_client'];?></td>
+                                <td style="padding:2px;text-align: center;background: white;"><?php echo $items;?></td>
+    							<td style="padding:2px;text-align: center;background: white;"><?php echo $rw['code_property'];?></td>
+    							<td style="padding:2px;text-align: center;background: white;"><?php echo $rw['name_owner'];?></td>
+    							<td style="padding:2px;text-align: center;background: white;"><?php echo $rw['name_client'];?></td>
     							
-    							<td class="change_order_unit_col" style="text-align: center;background: white;"><?php $amount = $rw['canon_price']; echo "$" . number_format($amount, 0,'','.')?></td>
-                                <td style="text-align:center;background: white;"><?php echo $rw['day_pay'];?></td>
-    							<td style="background: white;text-align: center"><img src="resources/dist/img/casilla.png"></td>
-                                <td style="background: white;text-align: center"><img src="resources/dist/img/casilla.png"></td>
+    							<td style="padding:2px;text-align: center;background: white;"><?php $amount = $rw['canon_price']; echo "$" . number_format($amount, 0,'','.')?></td>
+                                <td style="padding:2px;text-align:center;background: white;"><?php echo $rw['day_pay'];?></td>
+    							<td style="padding:2px;background: white;text-align: center"><img src="resources/dist/img/casilla.png" width="10"></td>
+                                <td style="padding:2px;background: white;text-align: center"><img src="resources/dist/img/casilla.png" width="10"></td>
+                                <td style="padding:2px;text-align:center;background: white;"><?php echo $rw['agent_designated'];?></td>
+
     						</tr>
     						<?php
 		    			     }
@@ -159,7 +163,7 @@
     $dompdf->loadHtml(ob_get_clean()); 
 
 	// (Optional) Setup the paper size and orientation 
-    $dompdf->setPaper('P', 'Letter', 'landscape'); 
+    $dompdf->setPaper('P', 'A4', 'landscape'); 
 
 	// Render the HTML as PDF 
     $dompdf->render(); 

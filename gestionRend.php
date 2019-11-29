@@ -32,5 +32,5 @@
   $active_options = "";
   $active_docs = "active";
 
-  include 'vistas/listPayNote.view.php';
+  include 'vistas/gestionRend.view.php';
 ?>

@@ -41,11 +41,20 @@
     <section class="content container-fluid">
 
       <div class="row">
+        <div class="col-lg-6" style="padding-bottom: 10px">
+          <div class="btn-group">
+            <a href="rendDocument.php" class="btn btn-success"><i class="fa fa-plus-circle"></i> Nueva Rendición</a>
+            <button type="button" class="btn btn-warning"><i class="fa fa-plus-circle"></i> Nueva Cotización</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
         <!-- Notas de Pago Emitidas -->
         <div class="col-lg-6">
           <div class="box box-solid">
             <div class="box-header with-border">
-              <h3 class="box-title">Notas de Pago Emitidas</h3>
+              <h3 class="box-title">Notas de Pago - Sin Administración</h3>
 
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -53,7 +62,7 @@
               </div>
             </div>
             <div class="box-body">
-               <table id="paynote_data" class="table table-borderless table-hover table-striped" style="font-size: 1.2rem" width="100%">
+               <table id="rend_data" class="table table-borderless table-hover table-striped" style="font-size: 1.2rem" width="100%">
                 <thead>
                   <tr>
                     <th width="50">N°</th>
@@ -71,7 +80,7 @@
         <div class="col-lg-6">
           <div class="box box-solid">
             <div class="box-header with-border">
-              <h3 class="box-title">Notas de Cobro Emitidas</h3>
+              <h3 class="box-title">Cotizaciones Inmuebles Emitidas</h3>
 
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -164,7 +173,7 @@
   // Cargamos la lista de propiedades en relación al propietario
   cargarPayNote = function () {
 
-        $("#paynote_data").dataTable({
+        $("#rend_data").dataTable({
             "destroy":true,
             "order": false,//[[ 0, "desc" ]],
             "paging": true,
@@ -174,7 +183,7 @@
             "info": true,
             "autoWidth": true,
             "ajax": {
-                "url": "model/listAllNote.php",
+                "url": "model/listAllRend.php",
                 "method": "POST"
             },
             "aoColumns": [
@@ -185,7 +194,7 @@
                 // },
                 //2
                 { "mData": function (data, type, dataToSet) {
-                 return "N° " + data.number_paynote;}
+                 return "N° " + data.number_rend;}
                 },
                 //3
                 { "mData": function (data, type, dataToSet) {
@@ -198,10 +207,10 @@
                 //5
                 { "mData": function (data, type, dataToSet) {
 
-                  if (data.status_paynote === 'Pagado') {
-                    return "<label class='label label-success'>"+ data.status_paynote +"</label>";
+                  if (data.status_rend === 'Pagado') {
+                    return "<label class='label label-success'>"+ data.status_rend +"</label>";
                   }else{
-                    return "<label class='label label-danger'>"+ data.status_paynote +"</label>";
+                    return "<label class='label label-danger'>"+ data.status_rend +"</label>";
                   }
                  }
                 },
@@ -209,13 +218,13 @@
                 //8
                 { "mData": function (data, type, dataToSet) {
 
-                  if (data.status_paynote === 'Pagado') {
-                    var btnPag = '<button onclick=checkNotePay('+data.id_paynote+') class="btn btn-success"><i class="fa fa-check"></i></button>';
+                  if (data.status_rend === 'Pagado') {
+                    var btnPag = '<button onclick=checkNotePay('+data.id_rend+') class="btn btn-success"><i class="fa fa-check"></i></button>';
                   }else{
-                    var btnPag = '<button onclick=checkNotePay('+data.id_paynote+') class="btn btn-danger"><i class="fa fa-times"></i></button>';
+                    var btnPag = '<button onclick=checkNotePay('+data.id_rend+') class="btn btn-danger"><i class="fa fa-times"></i></button>';
                   }
 
-                  return '<div class="btn-group btn-group-sm"><button button="button" onclick="mostrarPdf(' + data.number_paynote + ')" class="btn btn-default"><i class="fa fa-file-pdf-o"></i></button>'+ btnPag +'</div>'
+                  return '<div class="btn-group btn-group-sm"><button button="button" onclick="mostrarPdf(' + data.number_rend + ')" class="btn btn-default"><i class="fa fa-file-pdf-o"></i></button>'+ btnPag +'</div>'
                     }
 
                     // <button onclick=checkNotePay("'+data.status_paynote+'") class="btn btn-success">boton</button>
@@ -363,7 +372,7 @@
     if (!/^([0-9])*$/.test(number_paynote)) {
       return false
     } else {
-      VentanaCentrada('./resources/dompdf/pdf_paynote.php?number='+number_paynote,'Nota de Pago','','1024','768','true');
+      VentanaCentrada('./resources/dompdf/pdf_rendnote.php?number='+number_paynote,'Comprobante - Nota de Pago','','1024','768','true');
     }
   }
 
