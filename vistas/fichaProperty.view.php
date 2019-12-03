@@ -117,6 +117,18 @@
                   <a class="btn btn-app" data-toggle="modal" data-target="#modalComprobante">
                     <i class="fa fa-cloud-upload"></i> Comprobante
                   </a>
+
+                  <form class="form-inline my-2 my-lg-0 js-pago-form" method="post">
+                    <?php
+                       $g = $_GET['property'];
+
+                       $q = "SELECT * FROM tbl_property_system WHERE id_property = '$g'";
+                       $res = $con->query($q);
+                       $rw = $res->fetch_assoc();
+                    ?>
+                    <input type="hidden" onclick="this.value=''" id="cliente_numero" name="cliente[numero]" value="<?php echo $rw['client_agua'];?>" required="required">
+                    <button class="btn btn-app bg-blue js-pagar"><i class="fa fa-tint"></i> Agua</button>
+                  </form>
                 </div>
               </div>
             </div>
@@ -662,6 +674,26 @@
 
   // Script para cargar funciones JS
   $(document).ready(function () {
+
+    //Funcion Script para revisar agua
+    $(function(){
+        
+        $('.js-pago-form').on('keydown', '.numerico', function(e){-1!==$.inArray(e.keyCode,[46,8,9,27,13,110,190])||(/65|67|86|88/.test(e.keyCode)&&(e.ctrlKey===true||e.metaKey===true))&&(!0===e.ctrlKey||!0===e.metaKey)||35<=e.keyCode&&40>=e.keyCode||(e.shiftKey||48>e.keyCode||57<e.keyCode)&&(96>e.keyCode||105<e.keyCode)&&e.preventDefault()});
+        
+        $('.js-pagar').click(function(e){
+            e.preventDefault();
+
+            if ($('#cliente_numero').val()=='') {
+                swal('Este inmueble no tiene n° de cliente ingresado.');
+                return false;
+            }
+
+            // $(this).attr('disabled','disabled');
+            // $('.loading').show();
+            // $('.pago-actions').hide();
+            $('.js-pago-form').attr('action','https://oficinavirtual.esval.cl/esval.php/iframeinicio/pagar').submit();
+        });
+    });
     
     $('[data-toggle="tooltip"]').tooltip();
 

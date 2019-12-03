@@ -45,11 +45,21 @@
         <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#modalAddProperty">
           <i class="fa fa-plus-circle"></i> Nueva Administración
         </button>
+
       </h1>
     </section>
 
     <!-- Main content -->
     <section class="content container-fluid">
+
+      <div class="row">
+        <div class="col-xs-12">
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAddProperty">
+          <i class="fa fa-plus-circle"></i> Nueva Administración
+        </button>
+        </div>
+      </div>
+      <br>
       <div class="row">
         <div class="col-xs-12">
           
@@ -1048,7 +1058,7 @@
 
                 //1
                 { "mData": function (data, type, dataToSet) {
-                 return "<b>DNG-"+ data.code_property +"</b><br><b>Propietario:</b> "+ data.name_owner +" <br><b>Arrendatario:</b> "+ data.name_client;}
+                 return data.agent_designated + "<br><b>DNG-"+ data.code_property +"</b><br><b>Propietario:</b> "+ data.name_owner +" <br><b>Arrendatario:</b> "+ data.name_client;}
                 },
                 //2
                 { "mData": function (data, type, dataToSet) {
@@ -1070,12 +1080,10 @@
                 // { "mData": function (data, type, dataToSet) {
                 //  return "DNG-"+ data.bank;}
                 // },
-                {
-                    "data": "id_property",
-                    render: function (data, type, row) {
+                { "mData": function (data, type, dataToSet) {
                         // return "<div class='btn-group'><button button='button' onclick='mostrarProperty(" + data + ");' class='btn bg-olive' data-toggle='modal' data-target='#modalEditProperty'><i class='fa fa-edit'></i></button><a href='fichaProperty.php?property="+ data +"' class='btn btn-default'><i class='fa fa-eye'></i></a><button type='button' onclick='deleteProperty(" + data + ");' class='btn btn-danger'><i class='fa fa-trash'></i></button></div>"
 
-                        return "<!-- Single button --><div class='ocultar-elemento btn-group'><button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Mostrar <span class='caret'></span></button><ul class='dropdown-menu'><li><a href='' onclick='mostrarProperty(" + data + ");' data-toggle='modal' data-target='#modalEditProperty'><i class='fa fa-edit'></i>Editar Inmueble</a></li><li><a href='fichaProperty.php?property="+ data +"'><i class='fa fa-eye'></i>Ficha Inmueble</a></li><li><a herf='' onclick='deleteProperty(" + data + ");'><i class='fa fa-trash'></i> Eliminar Inmueble</a></li><li role='separator' class='divider'></li><li><a href='#'>Pronto!</a></li></ul></div>"
+                        return "<!-- Single button --><div class='ocultar-elemento btn-group'><button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Mostrar <span class='caret'></span></button><ul class='dropdown-menu'><li><a href='' onclick='mostrarProperty(" + data.id_property + ");' data-toggle='modal' data-target='#modalEditProperty'><i class='fa fa-edit'></i>Editar Inmueble</a></li><li><a href='fichaProperty.php?property="+ data.id_property +"'><i class='fa fa-eye'></i>Ficha Inmueble</a></li><li><a herf='' onclick='deleteProperty(" + data.id_property + ");'><i class='fa fa-trash'></i> Eliminar Inmueble</a></li><li role='separator' class='divider'></li><li><a herf='' >Pronto!</a></li></ul></div>"
                     }
                 }
 
