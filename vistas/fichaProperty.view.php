@@ -914,7 +914,7 @@
                 },
                 //3
                 { "mData": function (data, type, dataToSet) {
-                 return "<b>Emitida a: </b>"+ data.name_owner +"<br><b>Registro:</b> " + moment(data.date_register).format('D/M/Y') + "<br><b>Pago:</b> " + moment(data.date_paynote).format('D/M/Y') + "<br><b>Dirección:</b> " + data.address_property ;}
+                 return "<b>Emitida a: </b>"+ data.name_owner +"<br><b>Registro:</b> " + moment(data.date_register).format('D/M/Y') + "<br><b>Vcto:</b> " + moment(data.date_chargenote).format('D/M/Y') + "<br><b>Dirección:</b> " + data.address_property ;}
                 },
                 //4
                 { "mData": function (data, type, dataToSet) {
