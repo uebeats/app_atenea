@@ -135,7 +135,7 @@
           <div class="col-xs-8">
             <p class="lead">Observaciones Adicionales:</p>
               <div class="form-group">
-                <textarea name="obs_paynote" id="obs_paynote" class="form-control" style="height: 80px">Estimado Cliente, detallamos en esta nota de cobro lo adeudado por usted. Recuerde que si tiene alguna duda con respecto al cobro puede llamarnos al +569 9848 0003.</textarea>
+                <textarea name="obs_paynote" id="obs_paynote" class="form-control" style="height: 80px">Estimado Cliente, detallamos en esta nota de cobro lo adeudado por usted. Recuerde que si tiene alguna duda con respecto al cobro puede llamarnos al +569 9848 0003 o comuníquese con su agente designado. </textarea>
               </div>
           </div>
         </div>
