@@ -78,12 +78,7 @@
     				<table style="width: 100%; font-size: 12px;padding-top:40px;text-align: center;">
     					<tbody>
     						<tr>
-                                <?php
-                                $qry = "SELECT * FROM tbl_property_system";
-                                $result = $con->query($qry);
-                                $rw = $result->fetch_assoc();
-                                ?>
-    							<td>Informe de propiedades solicitado por <strong><?php echo $rw['agent_designated'];?></strong></td>
+    							<td>Informe de propiedades solicitado por <strong><?php nameUser($_SESSION['user_system']);?></strong></td>
     						</tr>
     					</tbody>
     				</table>
