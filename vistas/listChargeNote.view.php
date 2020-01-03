@@ -19,7 +19,7 @@
 
   </aside>
 
-  <div class="content-wrapper"">
+  <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
@@ -115,8 +115,9 @@
             <table class="table" style="margin-bottom: 0!important">
               <thead>
                 <tr>
+                  <th class='text-center'>#</th>
                   <th class='text-center'>Item</th>
-                  <th>Descripción</th>
+                  <th class='text-center'>Descripción</th>
                   <th class='text-center'>Cantidad</th>
                   <th class='text-right'>Subtotal</th>
                   <th class='text-right'>Total</th>
@@ -241,6 +242,13 @@
                   <div class="form-group">
                     <label>Monto:</label>
                     <input type="text" class="form-control amount" id="tmp_amount" name="tmp_amount">
+                  </div>
+                </div>
+                  
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label>Detalle Movimiento:</label>
+                    <textarea name="tmp_detalle_mov" id="detalle_mov" class="form-control"></textarea>
                   </div>
                 </div>
               
@@ -388,8 +396,9 @@
         $("#tmp_description option:selected").each(function() {
 
           parametros = $(this).val();
-
-          $.ajax({
+            
+            //SOLICITUD DE MONTO
+            $.ajax({
             type: "POST",
             url:'model/jsonAmount.php',
             data: {parametros: parametros},
@@ -400,6 +409,25 @@
               $('#tmp_amount').val(data);
             }
           })
+            
+            //SOLICITUD DE DETALLE
+            $.ajax({
+            type: "POST",
+            url:'model/jsonMove.php',
+            data: {parametros: parametros},
+            beforeSend: function(objeto){
+                $('#detalle_mov').val('Cargando...');
+            },
+            success:function(data){
+                $('#detalle_mov').val(data);
+            }
+          })
+            
+          event.preventDefault();
+          // $.post("../main/php/getServicios.php",{ id_materia: id_materia }, function(data){
+          //   $("#cbx_servicio").html(data);
+          // });
+          // alert(id_movement);
           event.preventDefault();
           // $.post("../main/php/getServicios.php",{ id_materia: id_materia }, function(data){
           //   $("#cbx_servicio").html(data);

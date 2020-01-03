@@ -691,7 +691,7 @@
             // $(this).attr('disabled','disabled');
             // $('.loading').show();
             // $('.pago-actions').hide();
-            $('.js-pago-form').attr('action','https://oficinavirtual.esval.cl/esval.php/iframeinicio/pagar').submit();
+            $('.js-pago-form').attr('action','https://oficinavirtual.esval.cl/login/busqueda').submit();
         });
     });
     

@@ -20,8 +20,9 @@ if($action == 'ajax'){
 		$desc = $con->real_escape_string($_POST['tmp_description']);
 		$qty = intval($_POST['tmp_quantity']);
 		$amount = floatval($_POST['tmp_amount']);
+        $tmp_desc = $con->real_escape_string($_POST['tmp_detalle_mov']);
 
-		$insert ="INSERT INTO tbl_tmp_chargenote (agent_designated, tmp_description, tmp_quantity, tmp_amount) VALUES ('$agent','$desc','$qty','$amount')";
+		$insert ="INSERT INTO tbl_tmp_chargenote (agent_designated, tmp_description, tmp_quantity, tmp_amount, tmp_detalle_mov) VALUES ('$agent','$desc','$qty','$amount','$tmp_desc')";
 		$result = $con->query($insert);
 	}
 
@@ -41,13 +42,15 @@ if($action == 'ajax'){
 	?>
 	<tr>
 		<td class='text-center'><?php echo $items;?></td>
-		<td><?php 
+		<td class="text-center">
+        <?php 
 			$detalle = $row['tmp_description'];
 			$q = "SELECT type_movement FROM tbl_move_property WHERE id_move_property = '$detalle'";
 			$sel = $con->query($q);
 			$r = $sel->fetch_assoc();
 			echo $r['type_movement'];
 		?></td>
+        <td class='text-center'><?php echo $row['tmp_detalle_mov'];?></td>
 		<td class='text-center'><?php echo $row['tmp_quantity'];?></td>
 		<td class='text-right'>$<?php echo $row['tmp_amount'];?></td>
 		<td class='text-right'>$<?php echo $total;?></td>
@@ -74,7 +77,7 @@ if($action == 'ajax'){
 	<tr>
 		<th colspan='4' class='text-right'>
 			Subtotal:
-		</td>
+		</th>
 		<td class='text-right'>
 			$<?php echo $suma;?>
 		</td>

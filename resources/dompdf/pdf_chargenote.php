@@ -35,7 +35,7 @@
     	<link rel="stylesheet" href="../../resources/dist/css/print_styles.css" type="text/css">
     </head>
 
-    <body marginwidth="0" marginheight="0">
+    <body marginwidth="0" marginheight="0"> 
 
     	<div id="body">
 
@@ -81,6 +81,7 @@
     					
     					<tbody style="font-size: 12px">
     						<tr>
+    							<th style="text-align: center">#</th>
     							<th style="text-align: center">Item</th>
     							<th style="text-align: center">Descripción</th>
     							<th style="text-align: center">Qty</th>
@@ -110,6 +111,7 @@
                                     $row = $sel->fetch_assoc();
                                     echo $row['type_movement'];
                                 ?></td>
+                                <td class='text-center'><?php echo $r['tmp_detalle_mov'];?></td>
     							<td style="text-align: center"><?php echo $r['tmp_quantity'];?></td>
     							<td style="text-align: right; border-right-style: none;">$</td>
     							<td class="change_order_unit_col" style="border-left-style: none;"><?php $amount = $r['tmp_amount']; echo number_format($amount, 0,'','.')?></td>
@@ -129,14 +131,14 @@
     					<tbody style="font-size: 12px">
     						<tr>
     							<td colspan="3" style="text-align: right;">Estado: <span style="text-transform: uppercase;"><?php echo $rw_paynote['status_chargenote'];?></span></td>
-    							<td colspan="2" style="text-align: right;"><strong>TOTAL OPERACIÓN:</strong></td>
+    							<td colspan="3" style="text-align: right;"><strong>TOTAL OPERACIÓN:</strong></td>
     							<td class="change_order_total_col"><strong>$<?php echo number_format($total, 0,'','.');?></strong></td>
     						</tr>
     					</tbody>
 
     					<tbody>
     						<tr>
-    							<td colspan="6" style="font-size: 12px; padding-bottom: 10px"><h2>Resumen:</h2><?php echo $rw_paynote['obs_paynote'];?></td>
+    							<td colspan="7" style="font-size: 12px; padding-bottom: 10px"><h2>Resumen:</h2><?php echo $rw_paynote['obs_paynote'];?></td>
     						</tr>
     					</tbody>
     				</table>
@@ -150,7 +152,7 @@
     						</tr>
     						<?php
     							$id = $rw_property['id_property'];
-						        $select = "SELECT * FROM tbl_chargenote_system WHERE id_property = '$id' LIMIT 3";
+						        $select = "SELECT * FROM tbl_chargenote_system WHERE id_property = '$id' ORDER BY number_chargenote DESC LIMIT 3";
 						        $result = $con->query($select);
 						        while($r_paynote = $result->fetch_assoc()){
 						    ?>

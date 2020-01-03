@@ -25,8 +25,9 @@
 			$desc = $rw['tmp_description'];
 			$qty = $rw['tmp_quantity'];
 			$amount = $rw['tmp_amount'];
+            $tmp_desc = $rw['tmp_detalle_mov'];
 
-			$query = "INSERT INTO tbl_detalle_paynote (id_number_paynote, tmp_description, tmp_quantity, tmp_amount) VALUES ('$num','$desc','$qty','$amount')";
+			$query = "INSERT INTO tbl_detalle_paynote (id_number_paynote, tmp_description, tmp_quantity, tmp_amount, tmp_detalle_mov) VALUES ('$num','$desc','$qty','$amount','$tmp_desc')";
 			$resultado = $con->query($query);
 			if (isset($resultado)) {
 				// Eliminar registros de tbl_tmp_paynote

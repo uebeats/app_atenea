@@ -145,7 +145,7 @@
 
   $(document).ready(function(){
     // Display an info toast with no title
-    toastr.warning('30 días para actualizar IPC a "Property"')
+    // toastr.warning('30 días para actualizar IPC a "Property"')
 
     $('#formAmount').submit(function (e) {
     e.preventDefault();
